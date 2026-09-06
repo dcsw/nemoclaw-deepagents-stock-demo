@@ -1,0 +1,56 @@
+name: Refresh Stock Data
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6am UTC
+  workflow_dispatch:
+
+jobs:
+  refresh-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # We need to fetch the repo with write access to push back
+          persist-credentials: false  # Otherwise, we might get a 403 when pushing
+          fetch-depth: 0  # Fetch all history for potential commit signing
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'  # Matching the project's Python version
+          cache: 'pip'
+
+      - name: Create and activate virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+
+      - name: Install dependencies
+        run: |
+          pip install yfinance pandas
+
+      - name: Run data fetch script
+        run: |
+          source venv/bin/activate
+          python fetch_stock.py
+
+      - name: Check for changes in data.json
+        id: git_check
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          if git diff --quiet data.json; then
+            echo "No changes in data.json"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "data.json has changed"
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.git_check.outputs.changed == 'true'
+        run: |
+          git add data.json
+          git commit -m "Refresh stock data: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git push origin HEAD:${{ github.ref }}
