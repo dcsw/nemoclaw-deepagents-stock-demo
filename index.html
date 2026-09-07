@@ -391,8 +391,30 @@
                 yPrice.domain([d3.min(data, d => d.low) * 0.95, d3.max(data, d => d.high) * 1.05]).nice();
                 yVolume.domain([0, d3.max(data, d => d.volume) * 1.1]).nice();
 
+                // Create updated axes with appropriate tick intervals based on time range
+                const timeRange = x.domain()[1] - x.domain()[0]; // time range in milliseconds
+                const yearsRange = timeRange / (1000 * 60 * 60 * 24 * 365.25); // approximate years
+                
+                let xAxisUpdated;
+                if (yearsRange < 2) {
+                    // Less than 2 years: show months
+                    xAxisUpdated = d3.axisBottom(x)
+                        .ticks(d3.timeMonth.every(1))
+                        .tickFormat(d3.timeFormat("%b %Y"));
+                } else if (yearsRange < 10) {
+                    // 2-10 years: show years
+                    xAxisUpdated = d3.axisBottom(x)
+                        .ticks(d3.timeYear.every(1))
+                        .tickFormat(d3.timeFormat("%Y"));
+                } else {
+                    // More than 10 years: show every 5 years to avoid crowding
+                    xAxisUpdated = d3.axisBottom(x)
+                        .ticks(d3.timeYear.every(5))
+                        .tickFormat(d3.timeFormat("%Y"));
+                }
+
                 // Update axes
-                svg.select(".x.axis").transition().duration(500).call(xAxis);
+                svg.select(".x.axis").transition().duration(500).call(xAxisUpdated);
                 svg.select(".y.axis.left").transition().duration(500).call(yAxisLeft);
                 svg.select(".y.axis.right").transition().duration(500).call(yAxisRight);
 
