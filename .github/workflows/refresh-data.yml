@@ -48,6 +48,9 @@ jobs:
       - name: Commit and push changes
         if: steps.git_check.outputs.changed == 'true'
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git add data.json
           git commit -m "Refresh stock data: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
           git push origin HEAD:${{ github.ref }}
