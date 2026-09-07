@@ -161,7 +161,7 @@
             dataset.sort((a, b) => a.date - b.date);
 
             // Set up dimensions
-            const margin = {top: 20, right: 120, bottom: 40, left: 30}; // Increased right margin further to prevent clipping of vertical label on the right
+            const margin = {top: 20, right: 120, bottom: 40, left: 80}; // Decreased left margin to move chart left, increased right margin to prevent clipping of vertical label on the right
             const width = 900 - margin.left - margin.right;
             const height = 400 - margin.top - margin.bottom;
 
