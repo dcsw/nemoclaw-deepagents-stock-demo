@@ -161,8 +161,8 @@
             dataset.sort((a, b) => a.date - b.date);
 
             // Set up dimensions
-            const margin = {top: 20, right: 100, bottom: 40, left: 130}; // Decreased left margin to move chart left, kept right margin to prevent clipping while reducing whitespace
-            const width = 900 - margin.left - margin.right;
+            const margin = {top: 20, right: 90, bottom: 40, left: 130}; // Decreased left margin to move chart left, decreased right margin to reduce whitespace while preventing clipping
+            const width = 1000 - margin.left - margin.right;
             const height = 400 - margin.top - margin.bottom;
 
             // Create SVG
