@@ -23,16 +23,14 @@ jobs:
       - name: Create and activate virtual environment
         run: |
           python -m venv venv
-          source venv/bin/activate
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          venv/bin/pip install -r requirements.txt
 
       - name: Run data fetch script
         run: |
-          source venv/bin/activate
-          python fetch_stock.py
+          venv/bin/python fetch_stock.py
 
       - name: Check for changes in data.json
         id: git_check
