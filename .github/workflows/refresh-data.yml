@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.13'  # Matching the project's Python version
           cache: 'pip'
-          cache-dependency-path: requirements.txt
+          cache-dependency-path: ./requirements.txt
 
       - name: Create and activate virtual environment
         run: |
