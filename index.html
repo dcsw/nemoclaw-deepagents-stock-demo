@@ -161,7 +161,7 @@
             dataset.sort((a, b) => a.date - b.date);
 
             // Set up dimensions
-            const margin = {top: 20, right: 80, bottom: 40, left: 140}; // Kept left margin to prevent overlap, reduced right margin to decrease whitespace while preventing clipping
+            const margin = {top: 20, right: 150, bottom: 40, left: 140}; // Kept left margin to prevent overlap, increased right margin to prevent clipping of vertical label on the right
             const width = 900 - margin.left - margin.right;
             const height = 400 - margin.top - margin.bottom;
 
