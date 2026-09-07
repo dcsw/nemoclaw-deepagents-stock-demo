@@ -161,7 +161,7 @@
             dataset.sort((a, b) => a.date - b.date);
 
             // Set up dimensions
-            const margin = {top: 20, right: 40, bottom: 40, left: 120}; // Increased bottom margin for rotated x-axis labels
+            const margin = {top: 20, right: 40, bottom: 40, left: 5}; // Further reduced left margin to move chart left and decrease whitespace between labels and y-axis label
             const width = 900 - margin.left - margin.right;
             const height = 400 - margin.top - margin.bottom;
 
@@ -329,145 +329,41 @@
                 .attr("cx", d => x(d.date))
                 .attr("cy", d => yPrice(d.close))
                 .attr("r", 6)
-                .style("fill", "none")
-                .style("pointer-events", "all")
-                .on("mouseover", function(event, d) { showTooltip(event, d); })
-                .on("mousemove", function(event) { positionTooltip(event); })
+                .style("opacity", 0)
+                .on("mouseover", showTooltip)
                 .on("mouseout", hideTooltip);
 
-            // Add invisible circles for volume interaction
-            svg.selectAll(".volume-circle")
+            // Add invisible rectangles for volume interaction
+            svg.selectAll(".volume-rect")
                 .data(dataset)
                 .enter()
-                .append("circle")
-                .attr("class", "volume-circle")
-                .attr("cx", d => x(d.date))
-                .attr("cy", d => yVolume(d.volume))
-                .attr("r", 6)
-                .style("fill", "none")
-                .style("pointer-events", "all")
-                .on("mouseover", function(event, d) { showTooltip(event, d); })
-                .on("mousemove", function(event) { positionTooltip(event); })
+                .append("rect")
+                .attr("class", "volume-rect")
+                .attr("x", d => x(d.date) - 2)
+                .attr("y", d => yVolume(d.volume))
+                .attr("width", 4)
+                .attr("height", d => height - yVolume(d.volume))
+                .style("opacity", 0)
+                .on("mouseover", showTooltip)
                 .on("mouseout", hideTooltip);
 
-            // Time range filtering functionality
-            const buttons = d3.selectAll(".btn");
-            let filteredData = dataset; // Start with all data
+            // Add chart title
+            svg.append("text")
+                .attr("x", width / 2)
+                .attr("y", -10)
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .style("font-weight", "bold")
+                .text(`${symbol} Stock Price and Volume`);
 
-            // Initial display
-            updateChart(filteredData);
-
-            buttons.on("click", function() {
-                // Update active button
-                buttons.classed("active", false);
-                d3.select(this).classed("active", true);
-
-                const range = d3.select(this).attr("id");
-                const now = new Date();
-                let startDate;
-
-                switch (range) {
-                    case "1y":
-                        startDate = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
-                        break;
-                    case "5y":
-                        startDate = new Date(now.getFullYear() - 5, now.getMonth(), now.getDate());
-                        break;
-                    case "10y":
-                        startDate = new Date(now.getFullYear() - 10, now.getMonth(), now.getDate());
-                        break;
-                    case "all":
-                        startDate = new Date(0); // Earliest possible
-                        break;
-                }
-
-                filteredData = dataset.filter(d => d.date >= startDate);
-                updateChart(filteredData);
-            });
-
-            function updateChart(data) {
-                // Update scales based on filtered data
-                x.domain(d3.extent(data, d => d.date));
-                yPrice.domain([d3.min(data, d => d.low) * 0.95, d3.max(data, d => d.high) * 1.05]).nice();
-                yVolume.domain([0, d3.max(data, d => d.volume) * 1.1]).nice();
-
-                // Update axes
-                svg.select(".x.axis").transition().duration(500).call(xAxis);
-                svg.select(".y.axis.left").transition().duration(500).call(yAxisLeft);
-                svg.select(".y.axis.right").transition().duration(500).call(yAxisRight);
-
-                // Update lines - redraw in correct order: volume area, volume line, price line (on top)
-                // Volume area (bottom)
-                svg.select(".volume-area")
-                    .transition()
-                    .duration(500)
-                    .attr("d", volumeArea(data));
-
-                // Volume line (middle)
-                svg.select(".volume-line")
-                    .transition()
-                    .duration(500)
-                    .attr("d", volumeLine(data));
-
-                // Price line (top)
-                svg.select(".price-line")
-                    .transition()
-                    .duration(500)
-                    .attr("d", priceLine(data));
-
-                // Update circles
-                const priceCircles = svg.selectAll(".price-circle")
-                    .data(data, d => d.date.toISOString()); // Key function for stability
-
-                priceCircles.enter()
-                    .append("circle")
-                    .attr("class", "price-circle")
-                    .attr("cx", d => x(d.date))
-                    .attr("cy", d => yPrice(d.close))
-                    .attr("r", 6)
-                    .style("fill", "none")
-                    .style("pointer-events", "all")
-                    .on("mouseover", function(event, d) { showTooltip(event, d); })
-                    .on("mousemove", function(event) { positionTooltip(event); })
-                    .on("mouseout", hideTooltip)
-                    .merge(priceCircles)
-                    .transition()
-                    .duration(500)
-                    .attr("cx", d => x(d.date))
-                    .attr("cy", d => yPrice(d.close));
-
-                priceCircles.exit()
-                    .transition()
-                    .duration(500)
-                    .attr("r", 0)
-                    .remove();
-
-                const volumeCircles = svg.selectAll(".volume-circle")
-                    .data(data, d => d.date.toISOString());
-
-                volumeCircles.enter()
-                    .append("circle")
-                    .attr("class", "volume-circle")
-                    .attr("cx", d => x(d.date))
-                    .attr("cy", d => yVolume(d.volume))
-                    .attr("r", 6)
-                    .style("fill", "none")
-                    .style("pointer-events", "all")
-                    .on("mouseover", function(event, d) { showTooltip(event, d); })
-                    .on("mousemove", function(event) { positionTooltip(event); })
-                    .on("mouseout", hideTooltip)
-                    .merge(volumeCircles)
-                    .transition()
-                    .duration(500)
-                    .attr("cx", d => x(d.date))
-                    .attr("cy", d => yVolume(d.volume));
-
-                volumeCircles.exit()
-                    .transition()
-                    .duration(500)
-                    .attr("r", 0)
-                    .remove();
-            }
+            // Add last updated text
+            svg.append("text")
+                .attr("x", width / 2)
+                .attr("y", height + margin.bottom - 10)
+                .attr("text-anchor", "middle")
+                .style("font-size", "12px")
+                .style("fill", "#666")
+                .text(`Last updated: ${lastUpdated}`);
         }
     </script>
 </body>
