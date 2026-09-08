@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AAPL Stock Price and Volume Chart</title>
+    <title>AAPL Stock Price, Volume and Prediction Chart</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         body {
@@ -74,6 +74,12 @@
             stroke: rgba(54, 162, 235, 1);
             stroke-width: 2;
         }
+        .prediction-line {
+            fill: none;
+            stroke: #ffd700; /* gold color for prediction */
+            stroke-width: 2;
+            stroke-dasharray: 5,5;
+        }
         .tooltip {
             position: absolute;
             padding: 10px;
@@ -109,7 +115,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>AAPL Stock Price and Volume (All Time)</h1>
+        <h1>AAPL Stock Price, Volume and Prediction (All Time)</h1>
         <div class="controls">
             <button class="btn" id="1y">1 Year</button>
             <button class="btn" id="5y">5 Years</button>
@@ -125,28 +131,34 @@
                 <div class="legend-color" style="background-color: rgba(54, 162, 235, 0.3); border: 1px solid rgba(54, 162, 235, 0.8);"></div>
                 <span>Volume</span>
             </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ffd700;"></div>
+                <span>Prediction (3-month lag)</span>
+            </div>
         </div>
         <div class="chart" id="chart"></div>
     </div>
 
     <script>
-        // Fetch the data.json file
-        fetch('./data.json')
-            .then(response => response.json())
-            .then(data => {
-                createChart(data);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                document.getElementById('chart').innerHTML = '<p>Error loading stock data. Please check if data.json is available.</p>';
-            });
+        // Fetch both data.json and predictions.json
+        Promise.all([
+            fetch('./data.json').then(response => response.json()),
+            fetch('./predictions.json').then(response => response.json())
+        ])
+        .then(([stockData, predictionData]) => {
+            createChart(stockData, predictionData);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            document.getElementById('chart').innerHTML = '<p>Error loading stock data. Please check if data.json and predictions.json are available.</p>';
+        });
 
-        function createChart(stockData) {
+        function createChart(stockData, predictionData) {
             const dataset = stockData.data;
             const symbol = stockData.symbol;
             const lastUpdated = stockData.last_updated;
 
-            // Parse dates and numbers
+            // Parse dates and numbers for stock data
             const parseTime = d3.timeParse("%Y-%m-%d");
             dataset.forEach(d => {
                 d.date = parseTime(d.Date);
@@ -160,8 +172,14 @@
             // Sort by date (just in case)
             dataset.sort((a, b) => a.date - b.date);
 
+            // Parse prediction data
+            const predictions = predictionData.data.map(p => ({
+                date: parseTime(p.Date),
+                predictedClose: +p.PredictedClose
+            }));
+
             // Set up dimensions
-            const margin = {top: 20, right: 90, bottom: 40, left: 130}; // Decreased left margin to move chart left, decreased right margin to reduce whitespace while preventing clipping
+            const margin = {top: 20, right: 90, bottom: 40, left: 130};
             const width = 1000 - margin.left - margin.right;
             const height = 400 - margin.top - margin.bottom;
 
@@ -178,9 +196,17 @@
                 .domain(d3.extent(dataset, d => d.date))
                 .range([0, width]);
 
-            // Price scale (left y-axis)
+            // Price scale (left y-axis) - consider both actual close and predicted close
+            const priceDomainLow = Math.min(
+                d3.min(dataset, d => d.low),
+                d3.min(predictions, p => p.predictedClose)
+            ) * 0.95;
+            const priceDomainHigh = Math.max(
+                d3.max(dataset, d => d.high),
+                d3.max(predictions, p => p.predictedClose)
+            ) * 1.05;
             const yPrice = d3.scaleLinear()
-                .domain([d3.min(dataset, d => d.low) * 0.95, d3.max(dataset, d => d.high) * 1.05])
+                .domain([priceDomainLow, priceDomainHigh])
                 .nice()
                 .range([height, 0]);
 
@@ -257,6 +283,11 @@
                 .y(d => yVolume(d.volume))
                 .curve(d3.curveMonotoneX);
 
+            const predictionLine = d3.line()
+                .x(p => x(p.date))
+                .y(p => yPrice(p.predictedClose))
+                .curve(d3.curveMonotoneX);
+
             // Add clipping rectangle to prevent overlap
             svg.append("defs").append("clipPath")
                 .attr("id", "chart-clip")
@@ -285,6 +316,13 @@
                 .attr("d", priceLine(dataset))
                 .attr("clip-path", "url(#chart-clip)");
 
+            // Add the prediction line (above price line)
+            svg.append("path")
+                .datum(predictions)
+                .attr("class", "prediction-line")
+                .attr("d", predictionLine(predictions))
+                .attr("clip-path", "url(#chart-clip)");
+
             // Add tooltip
             const tooltip = d3.select("body")
                 .append("div")
@@ -297,7 +335,7 @@
                        .style("top", (event.pageY - 28) + "px");
             }
 
-            // Function to show combined tooltip
+            // Function to show combined tooltip for stock data
             function showTooltip(event, d) {
                 tooltip.transition()
                        .duration(200)
@@ -309,6 +347,18 @@
                     `Low: $${d.low.toFixed(2)}<br/>` +
                     `Close: $${d.close.toFixed(2)}<br/>` +
                     `Volume: ${d.volume.toLocaleString()}`
+                );
+                positionTooltip(event);
+            }
+
+            // Function to show tooltip for prediction data
+            function showPredictionTooltip(event, p) {
+                tooltip.transition()
+                       .duration(200)
+                       .style("opacity", .9);
+                tooltip.html(
+                    `<strong>${p.date.toDateString()}</strong><br/>` +
+                    `Predicted Close: $${p.predictedClose.toFixed(2)}`
                 );
                 positionTooltip(event);
             }
@@ -350,12 +400,28 @@
                 .on("mousemove", function(event) { positionTooltip(event); })
                 .on("mouseout", hideTooltip);
 
+            // Add invisible circles for prediction interaction
+            svg.selectAll(".prediction-circle")
+                .data(predictions)
+                .enter()
+                .append("circle")
+                .attr("class", "prediction-circle")
+                .attr("cx", p => x(p.date))
+                .attr("cy", p => yPrice(p.predictedClose))
+                .attr("r", 6)
+                .style("fill", "none")
+                .style("pointer-events", "all")
+                .on("mouseover", function(event, p) { showPredictionTooltip(event, p); })
+                .on("mousemove", function(event) { positionTooltip(event); })
+                .on("mouseout", hideTooltip);
+
             // Time range filtering functionality
             const buttons = d3.selectAll(".btn");
             let filteredData = dataset; // Start with all data
+            let filteredPredictions = predictions; // Start with all predictions
 
             // Initial display
-            updateChart(filteredData);
+            updateChart(filteredData, filteredPredictions);
 
             buttons.on("click", function() {
                 // Update active button
@@ -382,13 +448,22 @@
                 }
 
                 filteredData = dataset.filter(d => d.date >= startDate);
-                updateChart(filteredData);
+                filteredPredictions = predictions.filter(p => p.date >= startDate);
+                updateChart(filteredData, filteredPredictions);
             });
 
-            function updateChart(data) {
+            function updateChart(data, preds) {
                 // Update scales based on filtered data
+                const priceDomainLow = Math.min(
+                    d3.min(data, d => d.low),
+                    d3.min(preds, p => p.predictedClose)
+                ) * 0.95;
+                const priceDomainHigh = Math.max(
+                    d3.max(data, d => d.high),
+                    d3.max(preds, p => p.predictedClose)
+                ) * 1.05;
                 x.domain(d3.extent(data, d => d.date));
-                yPrice.domain([d3.min(data, d => d.low) * 0.95, d3.max(data, d => d.high) * 1.05]).nice();
+                yPrice.domain([priceDomainLow, priceDomainHigh]).nice();
                 yVolume.domain([0, d3.max(data, d => d.volume) * 1.1]).nice();
 
                 // Create updated axes with appropriate tick intervals based on time range
@@ -418,7 +493,7 @@
                 svg.select(".y.axis.left").transition().duration(500).call(yAxisLeft);
                 svg.select(".y.axis.right").transition().duration(500).call(yAxisRight);
 
-                // Update lines - redraw in correct order: volume area, volume line, price line (on top)
+                // Update lines - redraw in correct order: volume area, volume line, price line, prediction line (on top)
                 // Volume area (bottom)
                 svg.select(".volume-area")
                     .transition()
@@ -431,13 +506,20 @@
                     .duration(500)
                     .attr("d", volumeLine(data));
 
-                // Price line (top)
+                // Price line (above volume)
                 svg.select(".price-line")
                     .transition()
                     .duration(500)
                     .attr("d", priceLine(data));
 
+                // Prediction line (top)
+                svg.select(".prediction-line")
+                    .transition()
+                    .duration(500)
+                    .attr("d", predictionLine(preds));
+
                 // Update circles
+                // Price circles
                 const priceCircles = svg.selectAll(".price-circle")
                     .data(data, d => d.date.toISOString()); // Key function for stability
 
@@ -451,19 +533,17 @@
                     .style("pointer-events", "all")
                     .on("mouseover", function(event, d) { showTooltip(event, d); })
                     .on("mousemove", function(event) { positionTooltip(event); })
-                    .on("mouseout", hideTooltip)
-                    .merge(priceCircles)
+                    .on("mouseout", hideTooltip);
+
+                priceCircles.exit().remove();
+
+                priceCircles
                     .transition()
                     .duration(500)
                     .attr("cx", d => x(d.date))
                     .attr("cy", d => yPrice(d.close));
 
-                priceCircles.exit()
-                    .transition()
-                    .duration(500)
-                    .attr("r", 0)
-                    .remove();
-
+                // Volume circles
                 const volumeCircles = svg.selectAll(".volume-circle")
                     .data(data, d => d.date.toISOString());
 
@@ -477,18 +557,39 @@
                     .style("pointer-events", "all")
                     .on("mouseover", function(event, d) { showTooltip(event, d); })
                     .on("mousemove", function(event) { positionTooltip(event); })
-                    .on("mouseout", hideTooltip)
-                    .merge(volumeCircles)
+                    .on("mouseout", hideTooltip);
+
+                volumeCircles.exit().remove();
+
+                volumeCircles
                     .transition()
                     .duration(500)
                     .attr("cx", d => x(d.date))
                     .attr("cy", d => yVolume(d.volume));
 
-                volumeCircles.exit()
+                // Prediction circles
+                const predictionCircles = svg.selectAll(".prediction-circle")
+                    .data(preds, p => p.date.toISOString());
+
+                predictionCircles.enter()
+                    .append("circle")
+                    .attr("class", "prediction-circle")
+                    .attr("cx", p => x(p.date))
+                    .attr("cy", p => yPrice(p.predictedClose))
+                    .attr("r", 6)
+                    .style("fill", "none")
+                    .style("pointer-events", "all")
+                    .on("mouseover", function(event, p) { showPredictionTooltip(event, p); })
+                    .on("mousemove", function(event) { positionTooltip(event); })
+                    .on("mouseout", hideTooltip);
+
+                predictionCircles.exit().remove();
+
+                predictionCircles
                     .transition()
                     .duration(500)
-                    .attr("r", 0)
-                    .remove();
+                    .attr("cx", p => x(p.date))
+                    .attr("cy", p => yPrice(p.predictedClose));
             }
         }
     </script>
