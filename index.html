@@ -653,87 +653,103 @@
                 yPrice.domain([priceDomainLow, priceDomainHigh]).nice();
                 yVolume.domain([0, d3.max(dataset, d => d.volume) * 1.1]).nice();
                 
-                // Update axes with appropriate tick intervals
-                const timeRange = x.domain()[1] - x.domain()[0];
-                const yearsRange = timeRange / (1000 * 60 * 60 * 24 * 365.25);
+                // Filter data to match current zoomed x domain
+            const zoomedData = dataset.filter(d => x(d.date) >= 0 && x(d.date) <= width);
+            const zoomedPredictions = predictions.filter(p => x(p.date) >= 0 && x(p.date) <= width);
+            
+            // Update scales based on zoomed data
+            const priceDomainLow = Math.min(
+                d3.min(zoomedData, d => d.low),
+                d3.min(zoomedPredictions, p => p.predictedClose)
+            ) * 0.95;
+            const priceDomainHigh = Math.max(
+                d3.max(zoomedData, d => d.high),
+                d3.max(zoomedPredictions, p => p.predictedClose)
+            ) * 1.05;
+            yPrice.domain([priceDomainLow, priceDomainHigh]).nice();
+            yVolume.domain([0, d3.max(zoomedData, d => d.volume) * 1.1]).nice();
+            
+            // Update axes with appropriate tick intervals
+            const timeRange = x.domain()[1] - x.domain()[0];
+            const yearsRange = timeRange / (1000 * 60 * 60 * 24 * 365.25);
+            
+            let xAxisUpdated;
+            if (yearsRange < 2) {
+                xAxisUpdated = d3.axisBottom(x)
+                    .ticks(d3.timeMonth.every(1))
+                    .tickFormat(d3.timeFormat("%b %Y"));
+            } else if (yearsRange < 10) {
+                xAxisUpdated = d3.axisBottom(x)
+                    .ticks(d3.timeYear.every(1))
+                    .tickFormat(d3.timeFormat("%Y"));
+            } else {
+                xAxisUpdated = d3.axisBottom(x)
+                    .ticks(d3.timeYear.every(5))
+                    .tickFormat(d3.timeFormat("%Y"));
+            }
+            
+            // Update axes
+            svg.select(".x.axis").transition().duration(500).call(xAxisUpdated);
+            svg.select(".y.axis.left").transition().duration(500).call(yAxisLeft);
+            svg.select(".y.axis.right").transition().duration(500).call(yAxisRight);
+            
+            // Update lines with zoomed data
+            svg.select(".volume-area")
+                .transition()
+                .duration(500)
+                .attr("d", volumeArea(zoomedData));
+            
+            svg.select(".volume-line")
+                .transition()
+                .duration(500)
+                .attr("d", volumeLine(zoomedData));
+            
+            svg.select(".price-line")
+                .transition()
+                .duration(500)
+                .attr("d", priceLine(zoomedData));
+            
+            svg.select(".prediction-line")
+                .transition()
+                .duration(500)
+                .attr("d", predictionLine(zoomedPredictions))
+                .attr("filter", "url(#glow)");
+            
+            // Update circles with zoomed data
+            const updateCircles = (circleClass, data, valueFn) => {
+                const circles = svg.selectAll(`.${circleClass}`)
+                    .data(data, d => d.date.toISOString());
                 
-                let xAxisUpdated;
-                if (yearsRange < 2) {
-                    xAxisUpdated = d3.axisBottom(x)
-                        .ticks(d3.timeMonth.every(1))
-                        .tickFormat(d3.timeFormat("%b %Y"));
-                } else if (yearsRange < 10) {
-                    xAxisUpdated = d3.axisBottom(x)
-                        .ticks(d3.timeYear.every(1))
-                        .tickFormat(d3.timeFormat("%Y"));
-                } else {
-                    xAxisUpdated = d3.axisBottom(x)
-                        .ticks(d3.timeYear.every(5))
-                        .tickFormat(d3.timeFormat("%Y"));
-                }
+                circles.enter()
+                    .append("circle")
+                    .attr("class", circleClass)
+                    .attr("cx", d => x(valueFn(d).date))
+                    .attr("cy", d => yPrice(valueFn(d).close))
+                    .attr("r", 6)
+                    .style("fill", "none")
+                    .style("pointer-events", "all")
+                    .on("mouseover", function(event, d) { 
+                        if (circleClass === "price-circle") showTooltip(event, d);
+                        else if (circleClass === "prediction-circle") showPredictionTooltip(event, d);
+                    })
+                    .on("mousemove", function(event) { positionTooltip(event); })
+                    .on("mouseout", hideTooltip);
                 
-                // Update axes
-                svg.select(".x.axis").transition().duration(500).call(xAxisUpdated);
-                svg.select(".y.axis.left").transition().duration(500).call(yAxisLeft);
-                svg.select(".y.axis.right").transition().duration(500).call(yAxisRight);
+                circles.exit().remove();
                 
-                // Update lines with all data (but clipped to current view)
-                svg.select(".volume-area")
+                circles
                     .transition()
                     .duration(500)
-                    .attr("d", volumeArea(dataset));
-                
-                svg.select(".volume-line")
-                    .transition()
-                    .duration(500)
-                    .attr("d", volumeLine(dataset));
-                
-                svg.select(".price-line")
-                    .transition()
-                    .duration(500)
-                    .attr("d", priceLine(dataset));
-                
-                svg.select(".prediction-line")
-                    .transition()
-                    .duration(500)
-                    .attr("d", predictionLine(predictions))
-                    .attr("filter", "url(#glow)");
-                
-                // Update circles with all data
-                const updateCircles = (circleClass, data, valueFn) => {
-                    const circles = svg.selectAll(`.${circleClass}`)
-                        .data(data, d => d.date.toISOString());
-                    
-                    circles.enter()
-                        .append("circle")
-                        .attr("class", circleClass)
-                        .attr("cx", d => x(valueFn(d).date))
-                        .attr("cy", d => yPrice(valueFn(d).close))
-                        .attr("r", 6)
-                        .style("fill", "none")
-                        .style("pointer-events", "all")
-                        .on("mouseover", function(event, d) { 
-                            if (circleClass === "price-circle") showTooltip(event, d);
-                            else if (circleClass === "prediction-circle") showPredictionTooltip(event, d);
-                        })
-                        .on("mousemove", function(event) { positionTooltip(event); })
-                        .on("mouseout", hideTooltip);
-                    
-                    circles.exit().remove();
-                    
-                    circles
-                        .transition()
-                        .duration(500)
-                        .attr("cx", d => x(valueFn(d).date))
-                        .attr("cy", d => yPrice(valueFn(d).close));
-                };
-                
-                // For price and volume, use dataset
-                updateCircles("price-circle", dataset, d => d);
-                updateCircles("volume-circle", dataset, d => d);
-                
-                // For predictions, use predictions array
-                updateCircles("prediction-circle", predictions, p => p);
+                    .attr("cx", d => x(valueFn(d).date))
+                    .attr("cy", d => yPrice(valueFn(d).close));
+            };
+            
+            // For price and volume, use zoomed dataset
+            updateCircles("price-circle", zoomedData, d => d);
+            updateCircles("volume-circle", zoomedData, d => d);
+            
+            // For predictions, use zoomed predictions array
+            updateCircles("prediction-circle", zoomedPredictions, p => p);
             }
         }
     </script>
