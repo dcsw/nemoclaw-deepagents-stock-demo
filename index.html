@@ -640,34 +640,21 @@
             }
             
             function updateChartWithZoom() {
+                // Filter data to match current zoomed x domain
+                const zoomedData = dataset.filter(d => x(d.date) >= 0 && x(d.date) <= width);
+                const zoomedPredictions = predictions.filter(p => x(p.date) >= 0 && x(p.date) <= width);
+                
                 // Update scales based on zoomed data
-                // For zoomed view, we use all original data but with the zoomed x domain
-                let priceDomainLow = Math.min(
+                const minPrice = Math.min(
                     d3.min(zoomedData, d => d.low),
                     d3.min(zoomedPredictions, p => p.predictedClose)
                 ) * 0.95;
-                let priceDomainHigh = Math.max(
+                const maxPrice = Math.max(
                     d3.max(zoomedData, d => d.high),
                     d3.max(zoomedPredictions, p => p.predictedClose)
                 ) * 1.05;
-                yPrice.domain([priceDomainLow, priceDomainHigh]).nice();
-                yVolume.domain([0, d3.max(dataset, d => d.volume) * 1.1]).nice();
-                
-                // Filter data to match current zoomed x domain
-            const zoomedData = dataset.filter(d => x(d.date) >= 0 && x(d.date) <= width);
-            const zoomedPredictions = predictions.filter(p => x(p.date) >= 0 && x(p.date) <= width);
-            
-            // Update scales based on zoomed data
-            const priceDomainLow = Math.min(
-                d3.min(zoomedData, d => d.low),
-                d3.min(zoomedPredictions, p => p.predictedClose)
-            ) * 0.95;
-            const priceDomainHigh = Math.max(
-                d3.max(zoomedData, d => d.high),
-                d3.max(zoomedPredictions, p => p.predictedClose)
-            ) * 1.05;
-            yPrice.domain([priceDomainLow, priceDomainHigh]).nice();
-            yVolume.domain([0, d3.max(zoomedData, d => d.volume) * 1.1]).nice();
+                yPrice.domain([minPrice, maxPrice]).nice();
+                yVolume.domain([0, d3.max(zoomedData, d => d.volume) * 1.1]).nice();
             
             // Update axes with appropriate tick intervals
             const timeRange = x.domain()[1] - x.domain()[0];
