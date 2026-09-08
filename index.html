@@ -76,9 +76,8 @@
         }
         .prediction-line {
             fill: none;
-            stroke: #ffd700; /* gold color for prediction */
-            stroke-width: 2;
-            stroke-dasharray: 5,5;
+            stroke: #ff0000; /* bright red for maximum visibility */
+            stroke-width: 3;
         }
         .tooltip {
             position: absolute;
@@ -132,7 +131,7 @@
                 <span>Volume</span>
             </div>
             <div class="legend-item">
-                <div class="legend-color" style="background-color: #ffd700;"></div>
+                <div class="legend-color" style="background-color: #ff0000;"></div>
                 <span>Prediction (3-month lag)</span>
             </div>
         </div>
@@ -294,6 +293,19 @@
                 .append("rect")
                 .attr("width", width)
                 .attr("height", height);
+            
+            // Add glow effect for prediction line
+            const defs = svg.append("defs");
+            const filter = defs.append("filter")
+                .attr("id", "glow");
+            filter.append("feGaussianBlur")
+                .attr("stdDeviation", "2")
+                .attr("result", "coloredBlur");
+            const feMerge = filter.append("feMerge");
+            feMerge.append("feMergeNode")
+                .attr("in", "coloredBlur");
+            feMerge.append("feMergeNode")
+                .attr("in", "SourceGraphic");
 
             // Add the volume area first (bottom layer)
             svg.append("path")
@@ -321,7 +333,8 @@
                 .datum(predictions)
                 .attr("class", "prediction-line")
                 .attr("d", predictionLine(predictions))
-                .attr("clip-path", "url(#chart-clip)");
+                .attr("clip-path", "url(#chart-clip)")
+                .attr("filter", "url(#glow)");
 
             // Add tooltip
             const tooltip = d3.select("body")
