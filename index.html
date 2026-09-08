@@ -642,13 +642,13 @@
             function updateChartWithZoom() {
                 // Update scales based on zoomed data
                 // For zoomed view, we use all original data but with the zoomed x domain
-                const priceDomainLow = Math.min(
-                    d3.min(dataset, d => d.low),
-                    d3.min(predictions, p => p.predictedClose)
+                let priceDomainLow = Math.min(
+                    d3.min(zoomedData, d => d.low),
+                    d3.min(zoomedPredictions, p => p.predictedClose)
                 ) * 0.95;
-                const priceDomainHigh = Math.max(
-                    d3.max(dataset, d => d.high),
-                    d3.max(predictions, p => p.predictedClose)
+                let priceDomainHigh = Math.max(
+                    d3.max(zoomedData, d => d.high),
+                    d3.max(zoomedPredictions, p => p.predictedClose)
                 ) * 1.05;
                 yPrice.domain([priceDomainLow, priceDomainHigh]).nice();
                 yVolume.domain([0, d3.max(dataset, d => d.volume) * 1.1]).nice();
