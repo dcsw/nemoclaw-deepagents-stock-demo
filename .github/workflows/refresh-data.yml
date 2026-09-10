@@ -32,18 +32,28 @@ jobs:
         run: |
           venv/bin/python fetch_stock.py
 
-      - name: Check for changes in data.json
+      - name: Generate predictions
+        run: |
+          venv/bin/python generate_predictions.py
+
+      - name: Check for changes in data files
         id: git_check
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          if git diff --quiet data.json; then
-            echo "No changes in data.json"
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
+          CHANGED=false
+          if ! git diff --quiet data.json; then
             echo "data.json has changed"
-            echo "changed=true" >> $GITHUB_OUTPUT
+            CHANGED=true
           fi
+          if ! git diff --quiet predictions.json; then
+            echo "predictions.json has changed"
+            CHANGED=true
+          fi
+          if [ "$CHANGED" = "false" ]; then
+            echo "No changes in data files"
+          fi
+          echo "changed=$CHANGED" >> $GITHUB_OUTPUT
 
       - name: Commit and push changes
         if: steps.git_check.outputs.changed == 'true'
@@ -51,6 +61,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git add data.json
-          git commit -m "Refresh stock data: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git add data.json predictions.json
+          git commit -m "Refresh stock data and predictions: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
           git push origin HEAD:${{ github.ref }}
