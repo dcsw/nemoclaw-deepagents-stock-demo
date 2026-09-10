@@ -1,54 +1,54 @@
 {
   "symbol": "AAPL",
-  "last_updated": "2026-09-10T01:51:20.059687",
+  "last_updated": "2026-09-10T01:59:17.140837",
   "data": [
     {
       "Date": "2020-01-02",
-      "PredictedClose": 53.9959
+      "PredictedClose": 53.3702
     },
     {
       "Date": "2020-02-03",
-      "PredictedClose": 61.8597
+      "PredictedClose": 62.2597
     },
     {
       "Date": "2020-03-02",
-      "PredictedClose": 69.0133
+      "PredictedClose": 69.235
     },
     {
       "Date": "2020-04-01",
-      "PredictedClose": 78.0165
+      "PredictedClose": 77.9733
     },
     {
       "Date": "2020-05-01",
-      "PredictedClose": 89.4859
+      "PredictedClose": 90.9887
     },
     {
       "Date": "2020-06-01",
-      "PredictedClose": 86.9551
+      "PredictedClose": 86.2509
     },
     {
       "Date": "2020-07-01",
-      "PredictedClose": 77.8866
+      "PredictedClose": 78.6283
     },
     {
       "Date": "2020-08-03",
-      "PredictedClose": 66.3714
+      "PredictedClose": 67.6421
     },
     {
       "Date": "2020-09-01",
-      "PredictedClose": 80.491
+      "PredictedClose": 80.3131
     },
     {
       "Date": "2020-10-01",
-      "PredictedClose": 93.3554
+      "PredictedClose": 93.6841
     },
     {
       "Date": "2020-11-02",
-      "PredictedClose": 107.4881
+      "PredictedClose": 108.9314
     },
     {
       "Date": "2020-12-01",
-      "PredictedClose": 134.9025
+      "PredictedClose": 135.1642
     }
   ]
 }
