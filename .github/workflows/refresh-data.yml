@@ -62,7 +62,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git fetch origin
-          git rebase origin/${{ github.ref }}
+          git rebase origin/main
           git add data.json predictions.json
           git commit -m "Refresh stock data and predictions: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
-          git push origin HEAD:${{ github.ref }}
+          git push origin HEAD:main
