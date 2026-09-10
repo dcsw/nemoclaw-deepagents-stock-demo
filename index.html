@@ -661,8 +661,11 @@
                     // Ignore small brush movements (likely clicks)
                     const [x0, x1] = selection;
                     if (Math.abs(x1 - x0) > 5) { // 5 pixels threshold
-                        // If brush is completed and there was a meaningful drag, update chart with zoomed data
+                        // If brush is completed and there was a meaningful drag, update x domain and chart
                         brushSelection = selection;
+                        // Convert pixel coordinates to data domain (dates)
+                        const newDomain = [x.invert(x0), x.invert(x1)].sort((a, b) => a - b);
+                        x.domain(newDomain);
                         updateChartWithZoom();
                     }
                     // else: ignore small selections (clicks)
