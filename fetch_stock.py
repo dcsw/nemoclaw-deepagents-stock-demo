@@ -22,6 +22,9 @@ def fetch_aapl_data():
         # Select relevant columns: Date, Open, High, Low, Close, Volume
         data = hist[['Date', 'Open', 'High', 'Low', 'Close', 'Volume']]
         
+        # Drop rows with NaN values in OHLC columns (e.g., today's incomplete data)
+        data = data.dropna(subset=['Open', 'High', 'Low', 'Close'])
+        
         # Convert to list of dictionaries
         data_list = data.to_dict(orient='records')
         
