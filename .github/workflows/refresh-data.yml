@@ -61,8 +61,11 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          # Stash any local changes, rebase, then restore
+          git stash
           git fetch origin
           git rebase origin/main
+          git stash pop
           git add data.json predictions.json
           git commit -m "Refresh stock data and predictions: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
           git push origin HEAD:main
