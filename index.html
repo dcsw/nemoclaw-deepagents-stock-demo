@@ -210,7 +210,21 @@
                 .attr("class", "brush")
                 .call(brush);
 
+            // Add right-click drag to pan (scroll left/right)
+            const drag = d3.drag()
+                .filter(event => event.button === 2) // Right click only
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended);
+
+            svg.call(drag);
+
+            // Prevent context menu on right-click
+            svg.on("contextmenu", event => event.preventDefault());
+
             let brushSelection = null; // Store the current brush selection
+            let dragStartX = null;
+            let dragStartDomain = null;
 
             // Set up scales (shared x-axis)
             const x = d3.scaleTime()
@@ -670,6 +684,53 @@
                     }
                     // else: ignore small selections (clicks)
                 }
+            }
+
+            // Drag handlers for right-click pan
+            function dragstarted(event) {
+                event.sourceEvent.preventDefault(); // Prevent context menu
+                dragStartX = event.x;
+                dragStartDomain = x.domain();
+            }
+
+            function dragged(event) {
+                if (dragStartX === null || dragStartDomain === null) return;
+                
+                // Calculate the pixel delta
+                const dx = event.x - dragStartX;
+                
+                // Convert pixel delta to data domain delta
+                // Since x range is [0, width], a pixel movement of dx corresponds to
+                // a domain movement of (dx / width) * (domain[1] - domain[0])
+                const domainSpan = dragStartDomain[1] - dragStartDomain[0];
+                const dataDelta = (dx / width) * domainSpan;
+                
+                // Pan by subtracting (negative dx means pan right, which means domain moves left)
+                const newDomain = [
+                    new Date(dragStartDomain[0].getTime() - dataDelta),
+                    new Date(dragStartDomain[1].getTime() - dataDelta)
+                ];
+                
+                // Clamp to data extent to prevent panning beyond data
+                const fullExtent = d3.extent(dataset, d => d.date);
+                if (newDomain[0] < fullExtent[0]) {
+                    const offset = fullExtent[0] - newDomain[0];
+                    newDomain[0] = fullExtent[0];
+                    newDomain[1] = new Date(newDomain[1].getTime() + offset);
+                }
+                if (newDomain[1] > fullExtent[1]) {
+                    const offset = newDomain[1] - fullExtent[1];
+                    newDomain[1] = fullExtent[1];
+                    newDomain[0] = new Date(newDomain[0].getTime() - offset);
+                }
+                
+                x.domain(newDomain);
+                updateChartWithZoom();
+            }
+
+            function dragended(event) {
+                dragStartX = null;
+                dragStartDomain = null;
             }
 
             function updateChartWithZoom() {
