@@ -14,12 +14,15 @@ df = df.sort_values('Date').reset_index(drop=True)
 # We'll store predictions in a list
 predictions = []
 
-# Generate monthly dates (first day of each month) from 2020-01-01 to 2020-12-31
-start_limit = pd.Timestamp('2020-01-01')
-end_limit = pd.Timestamp('2020-12-31')
-monthly_dates = pd.date_range(start=start_limit, end=end_limit, freq='MS')
+# Calculate the earliest date we can predict (need 39 months of prior data for training)
+earliest_predict_date = df['Date'].min() + relativedelta(months=39)
+# Latest date we can predict (use all available data)
+latest_predict_date = df['Date'].max()
 
-print(f"Generating predictions for {len(monthly_dates)} monthly dates from {start_limit.date()} to {end_limit.date()}")
+# Generate monthly dates (first day of each month) covering the full range
+monthly_dates = pd.date_range(start=earliest_predict_date, end=latest_predict_date, freq='MS')
+
+print(f"Generating predictions for {len(monthly_dates)} monthly dates from {earliest_predict_date.date()} to {latest_predict_date.date()}")
 
 for i, target_date in enumerate(monthly_dates):
     # Find the first available trading day on or after target_date
