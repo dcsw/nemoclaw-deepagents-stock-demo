@@ -1,126 +1,126 @@
 {
   "symbol": "AAPL",
-  "last_updated": "2026-09-10T03:08:57.188376",
+  "last_updated": "2026-09-10T10:53:51.369176",
   "data": [
     {
       "Date": "1984-04-02",
-      "PredictedClose": 0.0076
+      "PredictedClose": 0.0082
     },
     {
       "Date": "1984-05-01",
-      "PredictedClose": 0.059
+      "PredictedClose": 0.06
     },
     {
       "Date": "1984-06-01",
-      "PredictedClose": 0.0711
+      "PredictedClose": 0.0701
     },
     {
       "Date": "1984-07-02",
-      "PredictedClose": 0.0618
+      "PredictedClose": 0.0603
     },
     {
       "Date": "1984-08-01",
-      "PredictedClose": 0.0556
+      "PredictedClose": 0.0543
     },
     {
       "Date": "1984-09-04",
-      "PredictedClose": 0.0744
+      "PredictedClose": 0.0745
     },
     {
       "Date": "1984-10-01",
-      "PredictedClose": 0.0608
+      "PredictedClose": 0.0603
     },
     {
       "Date": "1984-11-01",
-      "PredictedClose": 0.0911
+      "PredictedClose": 0.0916
     },
     {
       "Date": "1984-12-03",
-      "PredictedClose": 0.1138
+      "PredictedClose": 0.114
     },
     {
       "Date": "1985-01-02",
-      "PredictedClose": 0.1107
+      "PredictedClose": 0.1103
     },
     {
       "Date": "1985-02-01",
-      "PredictedClose": 0.1168
+      "PredictedClose": 0.117
     },
     {
       "Date": "1985-03-01",
-      "PredictedClose": 0.1078
+      "PredictedClose": 0.1074
     },
     {
       "Date": "1985-04-01",
-      "PredictedClose": 0.1016
+      "PredictedClose": 0.1009
     },
     {
       "Date": "1985-05-01",
-      "PredictedClose": 0.1175
+      "PredictedClose": 0.1178
     },
     {
       "Date": "1985-06-03",
-      "PredictedClose": 0.1057
+      "PredictedClose": 0.1051
     },
     {
       "Date": "1985-07-01",
-      "PredictedClose": 0.0724
+      "PredictedClose": 0.0725
     },
     {
       "Date": "1985-08-01",
-      "PredictedClose": 0.0514
+      "PredictedClose": 0.0516
     },
     {
       "Date": "1985-09-03",
-      "PredictedClose": 0.0338
+      "PredictedClose": 0.034
     },
     {
       "Date": "1985-10-01",
-      "PredictedClose": 0.0062
+      "PredictedClose": 0.0041
     },
     {
       "Date": "1985-11-01",
-      "PredictedClose": 0.0192
+      "PredictedClose": 0.018
     },
     {
       "Date": "1985-12-02",
-      "PredictedClose": 0.0265
+      "PredictedClose": 0.0244
     },
     {
       "Date": "1986-01-02",
-      "PredictedClose": 0.0331
+      "PredictedClose": 0.0321
     },
     {
       "Date": "1986-02-03",
-      "PredictedClose": 0.0626
+      "PredictedClose": 0.0676
     },
     {
       "Date": "1986-03-03",
-      "PredictedClose": 0.0976
+      "PredictedClose": 0.0967
     },
     {
       "Date": "1986-04-01",
-      "PredictedClose": 0.0924
+      "PredictedClose": 0.0926
     },
     {
       "Date": "1986-05-01",
-      "PredictedClose": 0.0903
+      "PredictedClose": 0.0922
     },
     {
       "Date": "1986-06-02",
-      "PredictedClose": 0.0975
+      "PredictedClose": 0.0969
     },
     {
       "Date": "1986-07-01",
-      "PredictedClose": 0.1024
+      "PredictedClose": 0.1016
     },
     {
       "Date": "1986-08-01",
-      "PredictedClose": 0.0984
+      "PredictedClose": 0.0976
     },
     {
       "Date": "1986-09-02",
-      "PredictedClose": 0.1176
+      "PredictedClose": 0.1175
     },
     {
       "Date": "1986-10-01",
@@ -128,39 +128,39 @@
     },
     {
       "Date": "1986-11-03",
-      "PredictedClose": 0.1295
+      "PredictedClose": 0.128
     },
     {
       "Date": "1986-12-01",
-      "PredictedClose": 0.134
+      "PredictedClose": 0.1345
     },
     {
       "Date": "1987-01-02",
-      "PredictedClose": 0.1508
+      "PredictedClose": 0.1514
     },
     {
       "Date": "1987-02-02",
-      "PredictedClose": 0.1492
+      "PredictedClose": 0.1479
     },
     {
       "Date": "1987-03-02",
-      "PredictedClose": 0.1536
+      "PredictedClose": 0.1552
     },
     {
       "Date": "1987-04-01",
-      "PredictedClose": 0.1537
+      "PredictedClose": 0.1533
     },
     {
       "Date": "1987-05-01",
-      "PredictedClose": 0.1855
+      "PredictedClose": 0.1857
     },
     {
       "Date": "1987-06-01",
-      "PredictedClose": 0.2313
+      "PredictedClose": 0.2322
     },
     {
       "Date": "1987-07-01",
-      "PredictedClose": 0.2738
+      "PredictedClose": 0.2749
     },
     {
       "Date": "1987-08-03",
@@ -168,43 +168,43 @@
     },
     {
       "Date": "1987-09-01",
-      "PredictedClose": 0.3207
+      "PredictedClose": 0.3205
     },
     {
       "Date": "1987-10-01",
-      "PredictedClose": 0.3334
+      "PredictedClose": 0.333
     },
     {
       "Date": "1987-11-02",
-      "PredictedClose": 0.3378
+      "PredictedClose": 0.3392
     },
     {
       "Date": "1987-12-01",
-      "PredictedClose": 0.4239
+      "PredictedClose": 0.4221
     },
     {
       "Date": "1988-01-04",
-      "PredictedClose": 0.4854
+      "PredictedClose": 0.4846
     },
     {
       "Date": "1988-02-01",
-      "PredictedClose": 0.4238
+      "PredictedClose": 0.4242
     },
     {
       "Date": "1988-03-01",
-      "PredictedClose": 0.3696
+      "PredictedClose": 0.3669
     },
     {
       "Date": "1988-04-04",
-      "PredictedClose": 0.324
+      "PredictedClose": 0.3186
     },
     {
       "Date": "1988-05-02",
-      "PredictedClose": 0.3134
+      "PredictedClose": 0.3109
     },
     {
       "Date": "1988-06-01",
-      "PredictedClose": 0.2851
+      "PredictedClose": 0.2836
     },
     {
       "Date": "1988-07-01",
@@ -212,59 +212,59 @@
     },
     {
       "Date": "1988-08-01",
-      "PredictedClose": 0.2466
+      "PredictedClose": 0.2442
     },
     {
       "Date": "1988-09-01",
-      "PredictedClose": 0.2611
+      "PredictedClose": 0.2614
     },
     {
       "Date": "1988-10-03",
-      "PredictedClose": 0.2883
+      "PredictedClose": 0.2808
     },
     {
       "Date": "1988-11-01",
-      "PredictedClose": 0.2502
+      "PredictedClose": 0.2524
     },
     {
       "Date": "1988-12-01",
-      "PredictedClose": 0.2332
+      "PredictedClose": 0.231
     },
     {
       "Date": "1989-01-03",
-      "PredictedClose": 0.2336
+      "PredictedClose": 0.2349
     },
     {
       "Date": "1989-02-01",
-      "PredictedClose": 0.2419
+      "PredictedClose": 0.2446
     },
     {
       "Date": "1989-03-01",
-      "PredictedClose": 0.2974
+      "PredictedClose": 0.2989
     },
     {
       "Date": "1989-04-03",
-      "PredictedClose": 0.3008
+      "PredictedClose": 0.3009
     },
     {
       "Date": "1989-05-01",
-      "PredictedClose": 0.3183
+      "PredictedClose": 0.32
     },
     {
       "Date": "1989-06-01",
-      "PredictedClose": 0.2991
+      "PredictedClose": 0.2984
     },
     {
       "Date": "1989-07-03",
-      "PredictedClose": 0.2729
+      "PredictedClose": 0.2726
     },
     {
       "Date": "1989-08-01",
-      "PredictedClose": 0.2624
+      "PredictedClose": 0.2613
     },
     {
       "Date": "1989-09-01",
-      "PredictedClose": 0.2931
+      "PredictedClose": 0.2936
     },
     {
       "Date": "1989-10-02",
@@ -272,319 +272,319 @@
     },
     {
       "Date": "1989-11-01",
-      "PredictedClose": 0.253
+      "PredictedClose": 0.2538
     },
     {
       "Date": "1989-12-01",
-      "PredictedClose": 0.2476
+      "PredictedClose": 0.2472
     },
     {
       "Date": "1990-01-02",
-      "PredictedClose": 0.2711
+      "PredictedClose": 0.2716
     },
     {
       "Date": "1990-02-01",
-      "PredictedClose": 0.2983
+      "PredictedClose": 0.2971
     },
     {
       "Date": "1990-03-01",
-      "PredictedClose": 0.3462
+      "PredictedClose": 0.3467
     },
     {
       "Date": "1990-04-02",
-      "PredictedClose": 0.3012
-    },
-    {
-      "Date": "1990-05-01",
-      "PredictedClose": 0.2957
-    },
-    {
-      "Date": "1990-06-01",
-      "PredictedClose": 0.2853
-    },
-    {
-      "Date": "1990-07-02",
-      "PredictedClose": 0.2867
-    },
-    {
-      "Date": "1990-08-01",
-      "PredictedClose": 0.295
-    },
-    {
-      "Date": "1990-09-04",
       "PredictedClose": 0.3039
     },
     {
+      "Date": "1990-05-01",
+      "PredictedClose": 0.2926
+    },
+    {
+      "Date": "1990-06-01",
+      "PredictedClose": 0.2851
+    },
+    {
+      "Date": "1990-07-02",
+      "PredictedClose": 0.2873
+    },
+    {
+      "Date": "1990-08-01",
+      "PredictedClose": 0.2954
+    },
+    {
+      "Date": "1990-09-04",
+      "PredictedClose": 0.3013
+    },
+    {
       "Date": "1990-10-01",
-      "PredictedClose": 0.3077
+      "PredictedClose": 0.3071
     },
     {
       "Date": "1990-11-01",
-      "PredictedClose": 0.2576
+      "PredictedClose": 0.2567
     },
     {
       "Date": "1990-12-03",
-      "PredictedClose": 0.2388
-    },
-    {
-      "Date": "1991-01-02",
-      "PredictedClose": 0.2328
-    },
-    {
-      "Date": "1991-02-01",
-      "PredictedClose": 0.1827
-    },
-    {
-      "Date": "1991-03-01",
-      "PredictedClose": 0.1884
-    },
-    {
-      "Date": "1991-04-01",
-      "PredictedClose": 0.222
-    },
-    {
-      "Date": "1991-05-01",
-      "PredictedClose": 0.3179
-    },
-    {
-      "Date": "1991-06-03",
-      "PredictedClose": 0.4472
-    },
-    {
-      "Date": "1991-07-01",
-      "PredictedClose": 0.6181
-    },
-    {
-      "Date": "1991-08-01",
-      "PredictedClose": 0.6402
-    },
-    {
-      "Date": "1991-09-03",
-      "PredictedClose": 0.5287
-    },
-    {
-      "Date": "1991-10-01",
-      "PredictedClose": 0.4242
-    },
-    {
-      "Date": "1991-11-01",
-      "PredictedClose": 0.3369
-    },
-    {
-      "Date": "1991-12-02",
-      "PredictedClose": 0.3045
-    },
-    {
-      "Date": "1992-01-02",
-      "PredictedClose": 0.256
-    },
-    {
-      "Date": "1992-02-03",
-      "PredictedClose": 0.2989
-    },
-    {
-      "Date": "1992-03-02",
-      "PredictedClose": 0.3425
-    },
-    {
-      "Date": "1992-04-01",
-      "PredictedClose": 0.4101
-    },
-    {
-      "Date": "1992-05-01",
-      "PredictedClose": 0.5263
-    },
-    {
-      "Date": "1992-06-01",
-      "PredictedClose": 0.5924
-    },
-    {
-      "Date": "1992-07-01",
-      "PredictedClose": 0.4748
-    },
-    {
-      "Date": "1992-08-03",
-      "PredictedClose": 0.396
-    },
-    {
-      "Date": "1992-09-01",
-      "PredictedClose": 0.3872
-    },
-    {
-      "Date": "1992-10-01",
-      "PredictedClose": 0.3734
-    },
-    {
-      "Date": "1992-11-02",
-      "PredictedClose": 0.3215
-    },
-    {
-      "Date": "1992-12-01",
-      "PredictedClose": 0.2879
-    },
-    {
-      "Date": "1993-01-04",
-      "PredictedClose": 0.3581
-    },
-    {
-      "Date": "1993-02-01",
-      "PredictedClose": 0.4263
-    },
-    {
-      "Date": "1993-03-01",
-      "PredictedClose": 0.4469
-    },
-    {
-      "Date": "1993-04-01",
-      "PredictedClose": 0.5366
-    },
-    {
-      "Date": "1993-05-03",
-      "PredictedClose": 0.4468
-    },
-    {
-      "Date": "1993-06-01",
-      "PredictedClose": 0.3743
-    },
-    {
-      "Date": "1993-07-01",
-      "PredictedClose": 0.3133
-    },
-    {
-      "Date": "1993-08-02",
-      "PredictedClose": 0.2584
-    },
-    {
-      "Date": "1993-09-01",
-      "PredictedClose": 0.2892
-    },
-    {
-      "Date": "1993-10-01",
-      "PredictedClose": 0.2609
-    },
-    {
-      "Date": "1993-11-01",
-      "PredictedClose": 0.2563
-    },
-    {
-      "Date": "1993-12-01",
-      "PredictedClose": 0.2363
-    },
-    {
-      "Date": "1994-01-03",
       "PredictedClose": 0.2392
     },
     {
+      "Date": "1991-01-02",
+      "PredictedClose": 0.2336
+    },
+    {
+      "Date": "1991-02-01",
+      "PredictedClose": 0.1836
+    },
+    {
+      "Date": "1991-03-01",
+      "PredictedClose": 0.1888
+    },
+    {
+      "Date": "1991-04-01",
+      "PredictedClose": 0.2227
+    },
+    {
+      "Date": "1991-05-01",
+      "PredictedClose": 0.3212
+    },
+    {
+      "Date": "1991-06-03",
+      "PredictedClose": 0.4494
+    },
+    {
+      "Date": "1991-07-01",
+      "PredictedClose": 0.6222
+    },
+    {
+      "Date": "1991-08-01",
+      "PredictedClose": 0.6364
+    },
+    {
+      "Date": "1991-09-03",
+      "PredictedClose": 0.5233
+    },
+    {
+      "Date": "1991-10-01",
+      "PredictedClose": 0.426
+    },
+    {
+      "Date": "1991-11-01",
+      "PredictedClose": 0.331
+    },
+    {
+      "Date": "1991-12-02",
+      "PredictedClose": 0.2947
+    },
+    {
+      "Date": "1992-01-02",
+      "PredictedClose": 0.2577
+    },
+    {
+      "Date": "1992-02-03",
+      "PredictedClose": 0.2954
+    },
+    {
+      "Date": "1992-03-02",
+      "PredictedClose": 0.3382
+    },
+    {
+      "Date": "1992-04-01",
+      "PredictedClose": 0.4096
+    },
+    {
+      "Date": "1992-05-01",
+      "PredictedClose": 0.5301
+    },
+    {
+      "Date": "1992-06-01",
+      "PredictedClose": 0.6081
+    },
+    {
+      "Date": "1992-07-01",
+      "PredictedClose": 0.4713
+    },
+    {
+      "Date": "1992-08-03",
+      "PredictedClose": 0.3475
+    },
+    {
+      "Date": "1992-09-01",
+      "PredictedClose": 0.4121
+    },
+    {
+      "Date": "1992-10-01",
+      "PredictedClose": 0.3728
+    },
+    {
+      "Date": "1992-11-02",
+      "PredictedClose": 0.3212
+    },
+    {
+      "Date": "1992-12-01",
+      "PredictedClose": 0.2956
+    },
+    {
+      "Date": "1993-01-04",
+      "PredictedClose": 0.3571
+    },
+    {
+      "Date": "1993-02-01",
+      "PredictedClose": 0.4268
+    },
+    {
+      "Date": "1993-03-01",
+      "PredictedClose": 0.4431
+    },
+    {
+      "Date": "1993-04-01",
+      "PredictedClose": 0.5341
+    },
+    {
+      "Date": "1993-05-03",
+      "PredictedClose": 0.445
+    },
+    {
+      "Date": "1993-06-01",
+      "PredictedClose": 0.3772
+    },
+    {
+      "Date": "1993-07-01",
+      "PredictedClose": 0.311
+    },
+    {
+      "Date": "1993-08-02",
+      "PredictedClose": 0.2575
+    },
+    {
+      "Date": "1993-09-01",
+      "PredictedClose": 0.2806
+    },
+    {
+      "Date": "1993-10-01",
+      "PredictedClose": 0.2558
+    },
+    {
+      "Date": "1993-11-01",
+      "PredictedClose": 0.2529
+    },
+    {
+      "Date": "1993-12-01",
+      "PredictedClose": 0.2344
+    },
+    {
+      "Date": "1994-01-03",
+      "PredictedClose": 0.2401
+    },
+    {
       "Date": "1994-02-01",
-      "PredictedClose": 0.2587
+      "PredictedClose": 0.259
     },
     {
       "Date": "1994-03-01",
-      "PredictedClose": 0.2395
+      "PredictedClose": 0.2394
     },
     {
       "Date": "1994-04-04",
-      "PredictedClose": 0.1983
+      "PredictedClose": 0.1974
     },
     {
       "Date": "1994-05-02",
-      "PredictedClose": 0.131
+      "PredictedClose": 0.1303
     },
     {
       "Date": "1994-06-01",
-      "PredictedClose": 0.1287
+      "PredictedClose": 0.1289
     },
     {
       "Date": "1994-07-01",
-      "PredictedClose": 0.0805
+      "PredictedClose": 0.081
     },
     {
       "Date": "1994-08-01",
-      "PredictedClose": 0.1015
+      "PredictedClose": 0.1031
     },
     {
       "Date": "1994-09-01",
-      "PredictedClose": 0.0862
+      "PredictedClose": 0.0932
     },
     {
       "Date": "1994-10-03",
-      "PredictedClose": 0.0882
+      "PredictedClose": 0.0828
     },
     {
       "Date": "1994-11-01",
-      "PredictedClose": 0.2429
+      "PredictedClose": 0.2436
     },
     {
       "Date": "1994-12-01",
-      "PredictedClose": 0.3709
+      "PredictedClose": 0.3665
     },
     {
       "Date": "1995-01-03",
-      "PredictedClose": 0.4205
+      "PredictedClose": 0.419
     },
     {
       "Date": "1995-02-01",
-      "PredictedClose": 0.4663
+      "PredictedClose": 0.4665
     },
     {
       "Date": "1995-03-01",
-      "PredictedClose": 0.4514
+      "PredictedClose": 0.4498
     },
     {
       "Date": "1995-04-03",
-      "PredictedClose": 0.3432
+      "PredictedClose": 0.3421
     },
     {
       "Date": "1995-05-01",
-      "PredictedClose": 0.3095
+      "PredictedClose": 0.3106
     },
     {
       "Date": "1995-06-01",
-      "PredictedClose": 0.2661
+      "PredictedClose": 0.2679
     },
     {
       "Date": "1995-07-03",
-      "PredictedClose": 0.1422
+      "PredictedClose": 0.1419
     },
     {
       "Date": "1995-08-01",
-      "PredictedClose": 0.1435
+      "PredictedClose": 0.1451
     },
     {
       "Date": "1995-09-01",
-      "PredictedClose": 0.1846
+      "PredictedClose": 0.1822
     },
     {
       "Date": "1995-10-02",
-      "PredictedClose": 0.2841
+      "PredictedClose": 0.2803
     },
     {
       "Date": "1995-11-01",
-      "PredictedClose": 0.4598
+      "PredictedClose": 0.4679
     },
     {
       "Date": "1995-12-01",
-      "PredictedClose": 0.4463
+      "PredictedClose": 0.4488
     },
     {
       "Date": "1996-01-02",
-      "PredictedClose": 0.4201
+      "PredictedClose": 0.4202
     },
     {
       "Date": "1996-02-01",
-      "PredictedClose": 0.359
+      "PredictedClose": 0.3577
     },
     {
       "Date": "1996-03-01",
-      "PredictedClose": 0.321
+      "PredictedClose": 0.306
     },
     {
       "Date": "1996-04-01",
-      "PredictedClose": 0.2583
+      "PredictedClose": 0.2492
     },
     {
       "Date": "1996-05-01",
-      "PredictedClose": 0.1457
+      "PredictedClose": 0.1546
     },
     {
       "Date": "1996-06-03",
@@ -592,67 +592,67 @@
     },
     {
       "Date": "1996-07-01",
-      "PredictedClose": 0.0889
+      "PredictedClose": 0.0823
     },
     {
       "Date": "1996-08-01",
-      "PredictedClose": 0.0952
+      "PredictedClose": 0.1017
     },
     {
       "Date": "1996-09-03",
-      "PredictedClose": 0.1626
+      "PredictedClose": 0.1598
     },
     {
       "Date": "1996-10-01",
-      "PredictedClose": 0.1009
+      "PredictedClose": 0.1016
     },
     {
       "Date": "1996-11-01",
-      "PredictedClose": 0.1276
+      "PredictedClose": 0.1297
     },
     {
       "Date": "1996-12-02",
-      "PredictedClose": 0.1309
+      "PredictedClose": 0.1305
     },
     {
       "Date": "1997-01-02",
-      "PredictedClose": 0.146
+      "PredictedClose": 0.1392
     },
     {
       "Date": "1997-02-03",
-      "PredictedClose": 0.1478
+      "PredictedClose": 0.1497
     },
     {
       "Date": "1997-03-03",
-      "PredictedClose": 0.1471
+      "PredictedClose": 0.1499
     },
     {
       "Date": "1997-04-01",
-      "PredictedClose": 0.1199
+      "PredictedClose": 0.1211
     },
     {
       "Date": "1997-05-01",
-      "PredictedClose": 0.0877
+      "PredictedClose": 0.0881
     },
     {
       "Date": "1997-06-02",
-      "PredictedClose": 0.0913
+      "PredictedClose": 0.0915
     },
     {
       "Date": "1997-07-01",
-      "PredictedClose": 0.1025
+      "PredictedClose": 0.1027
     },
     {
       "Date": "1997-08-01",
-      "PredictedClose": 0.1459
+      "PredictedClose": 0.146
     },
     {
       "Date": "1997-09-02",
-      "PredictedClose": 0.1534
+      "PredictedClose": 0.1536
     },
     {
       "Date": "1997-10-01",
-      "PredictedClose": 0.1172
+      "PredictedClose": 0.1191
     },
     {
       "Date": "1997-11-03",
@@ -660,407 +660,407 @@
     },
     {
       "Date": "1997-12-01",
-      "PredictedClose": 0.1391
+      "PredictedClose": 0.139
     },
     {
       "Date": "1998-01-02",
-      "PredictedClose": 0.1556
+      "PredictedClose": 0.1576
     },
     {
       "Date": "1998-02-02",
-      "PredictedClose": 0.1318
+      "PredictedClose": 0.1326
     },
     {
       "Date": "1998-03-02",
-      "PredictedClose": 0.1077
+      "PredictedClose": 0.1075
     },
     {
       "Date": "1998-04-01",
-      "PredictedClose": 0.0745
+      "PredictedClose": 0.0746
     },
     {
       "Date": "1998-05-01",
-      "PredictedClose": 0.0969
+      "PredictedClose": 0.0985
     },
     {
       "Date": "1998-06-01",
-      "PredictedClose": 0.1494
+      "PredictedClose": 0.1472
     },
     {
       "Date": "1998-07-01",
-      "PredictedClose": 0.2049
+      "PredictedClose": 0.2007
     },
     {
       "Date": "1998-08-03",
-      "PredictedClose": 0.2401
+      "PredictedClose": 0.2355
     },
     {
       "Date": "1998-09-01",
-      "PredictedClose": 0.2913
+      "PredictedClose": 0.2902
     },
     {
       "Date": "1998-10-01",
-      "PredictedClose": 0.3119
+      "PredictedClose": 0.3084
     },
     {
       "Date": "1998-11-02",
-      "PredictedClose": 0.3441
+      "PredictedClose": 0.3452
     },
     {
       "Date": "1998-12-01",
-      "PredictedClose": 0.3661
+      "PredictedClose": 0.3658
     },
     {
       "Date": "1999-01-04",
-      "PredictedClose": 0.3289
+      "PredictedClose": 0.331
     },
     {
       "Date": "1999-02-01",
-      "PredictedClose": 0.2589
+      "PredictedClose": 0.2562
     },
     {
       "Date": "1999-03-01",
-      "PredictedClose": 0.2514
+      "PredictedClose": 0.2524
     },
     {
       "Date": "1999-04-01",
-      "PredictedClose": 0.2738
+      "PredictedClose": 0.2749
     },
     {
       "Date": "1999-05-03",
-      "PredictedClose": 0.3558
+      "PredictedClose": 0.376
     },
     {
       "Date": "1999-06-01",
-      "PredictedClose": 0.3389
+      "PredictedClose": 0.3392
     },
     {
       "Date": "1999-07-01",
-      "PredictedClose": 0.2771
+      "PredictedClose": 0.2765
     },
     {
       "Date": "1999-08-02",
-      "PredictedClose": 0.3069
-    },
-    {
-      "Date": "1999-09-01",
-      "PredictedClose": 0.3636
-    },
-    {
-      "Date": "1999-10-01",
-      "PredictedClose": 0.3922
-    },
-    {
-      "Date": "1999-11-01",
-      "PredictedClose": 0.4232
-    },
-    {
-      "Date": "1999-12-01",
-      "PredictedClose": 0.4547
-    },
-    {
-      "Date": "2000-01-03",
-      "PredictedClose": 0.5426
-    },
-    {
-      "Date": "2000-02-01",
-      "PredictedClose": 0.5961
-    },
-    {
-      "Date": "2000-03-01",
-      "PredictedClose": 0.7831
-    },
-    {
-      "Date": "2000-04-03",
-      "PredictedClose": 0.9612
-    },
-    {
-      "Date": "2000-05-01",
-      "PredictedClose": 1.0072
-    },
-    {
-      "Date": "2000-06-01",
-      "PredictedClose": 1.1051
-    },
-    {
-      "Date": "2000-07-03",
-      "PredictedClose": 1.2025
-    },
-    {
-      "Date": "2000-08-01",
-      "PredictedClose": 1.2327
-    },
-    {
-      "Date": "2000-09-01",
-      "PredictedClose": 1.0821
-    },
-    {
-      "Date": "2000-10-02",
-      "PredictedClose": 0.8873
-    },
-    {
-      "Date": "2000-11-01",
-      "PredictedClose": 0.8355
-    },
-    {
-      "Date": "2000-12-01",
-      "PredictedClose": 0.8342
-    },
-    {
-      "Date": "2001-01-02",
-      "PredictedClose": 0.7434
-    },
-    {
-      "Date": "2001-02-01",
-      "PredictedClose": 0.3266
-    },
-    {
-      "Date": "2001-03-01",
-      "PredictedClose": 0.1132
-    },
-    {
-      "Date": "2001-04-02",
-      "PredictedClose": -0.0342
-    },
-    {
-      "Date": "2001-05-01",
-      "PredictedClose": -0.0691
-    },
-    {
-      "Date": "2001-06-01",
-      "PredictedClose": -0.15
-    },
-    {
-      "Date": "2001-07-02",
-      "PredictedClose": -0.0182
-    },
-    {
-      "Date": "2001-08-01",
-      "PredictedClose": 0.022
-    },
-    {
-      "Date": "2001-09-04",
-      "PredictedClose": 0.3728
-    },
-    {
-      "Date": "2001-10-01",
-      "PredictedClose": 0.4071
-    },
-    {
-      "Date": "2001-11-01",
-      "PredictedClose": 0.3599
-    },
-    {
-      "Date": "2001-12-03",
-      "PredictedClose": 0.2759
-    },
-    {
-      "Date": "2002-01-02",
-      "PredictedClose": 0.0213
-    },
-    {
-      "Date": "2002-02-01",
-      "PredictedClose": 0.2319
-    },
-    {
-      "Date": "2002-03-01",
-      "PredictedClose": 0.3234
-    },
-    {
-      "Date": "2002-04-01",
-      "PredictedClose": 0.4054
-    },
-    {
-      "Date": "2002-05-01",
-      "PredictedClose": 0.4587
-    },
-    {
-      "Date": "2002-06-03",
-      "PredictedClose": 0.355
-    },
-    {
-      "Date": "2002-07-01",
-      "PredictedClose": 0.3318
-    },
-    {
-      "Date": "2002-08-01",
       "PredictedClose": 0.3077
     },
     {
+      "Date": "1999-09-01",
+      "PredictedClose": 0.3631
+    },
+    {
+      "Date": "1999-10-01",
+      "PredictedClose": 0.3921
+    },
+    {
+      "Date": "1999-11-01",
+      "PredictedClose": 0.4201
+    },
+    {
+      "Date": "1999-12-01",
+      "PredictedClose": 0.4577
+    },
+    {
+      "Date": "2000-01-03",
+      "PredictedClose": 0.5434
+    },
+    {
+      "Date": "2000-02-01",
+      "PredictedClose": 0.5975
+    },
+    {
+      "Date": "2000-03-01",
+      "PredictedClose": 0.7752
+    },
+    {
+      "Date": "2000-04-03",
+      "PredictedClose": 0.9678
+    },
+    {
+      "Date": "2000-05-01",
+      "PredictedClose": 1.0077
+    },
+    {
+      "Date": "2000-06-01",
+      "PredictedClose": 1.0998
+    },
+    {
+      "Date": "2000-07-03",
+      "PredictedClose": 1.2044
+    },
+    {
+      "Date": "2000-08-01",
+      "PredictedClose": 1.2358
+    },
+    {
+      "Date": "2000-09-01",
+      "PredictedClose": 1.0771
+    },
+    {
+      "Date": "2000-10-02",
+      "PredictedClose": 0.888
+    },
+    {
+      "Date": "2000-11-01",
+      "PredictedClose": 0.834
+    },
+    {
+      "Date": "2000-12-01",
+      "PredictedClose": 0.8366
+    },
+    {
+      "Date": "2001-01-02",
+      "PredictedClose": 0.7399
+    },
+    {
+      "Date": "2001-02-01",
+      "PredictedClose": 0.3267
+    },
+    {
+      "Date": "2001-03-01",
+      "PredictedClose": 0.12
+    },
+    {
+      "Date": "2001-04-02",
+      "PredictedClose": -0.0334
+    },
+    {
+      "Date": "2001-05-01",
+      "PredictedClose": -0.0716
+    },
+    {
+      "Date": "2001-06-01",
+      "PredictedClose": -0.1558
+    },
+    {
+      "Date": "2001-07-02",
+      "PredictedClose": -0.0238
+    },
+    {
+      "Date": "2001-08-01",
+      "PredictedClose": 0.0192
+    },
+    {
+      "Date": "2001-09-04",
+      "PredictedClose": 0.3766
+    },
+    {
+      "Date": "2001-10-01",
+      "PredictedClose": 0.4315
+    },
+    {
+      "Date": "2001-11-01",
+      "PredictedClose": 0.35
+    },
+    {
+      "Date": "2001-12-03",
+      "PredictedClose": 0.3079
+    },
+    {
+      "Date": "2002-01-02",
+      "PredictedClose": 0.0229
+    },
+    {
+      "Date": "2002-02-01",
+      "PredictedClose": 0.2844
+    },
+    {
+      "Date": "2002-03-01",
+      "PredictedClose": 0.3143
+    },
+    {
+      "Date": "2002-04-01",
+      "PredictedClose": 0.4001
+    },
+    {
+      "Date": "2002-05-01",
+      "PredictedClose": 0.4584
+    },
+    {
+      "Date": "2002-06-03",
+      "PredictedClose": 0.3673
+    },
+    {
+      "Date": "2002-07-01",
+      "PredictedClose": 0.3691
+    },
+    {
+      "Date": "2002-08-01",
+      "PredictedClose": 0.2843
+    },
+    {
       "Date": "2002-09-03",
-      "PredictedClose": 0.4376
+      "PredictedClose": 0.4372
     },
     {
       "Date": "2002-10-01",
-      "PredictedClose": 0.2777
+      "PredictedClose": 0.2866
     },
     {
       "Date": "2002-11-01",
-      "PredictedClose": 0.1711
+      "PredictedClose": 0.1774
     },
     {
       "Date": "2002-12-02",
-      "PredictedClose": 0.1708
+      "PredictedClose": 0.1758
     },
     {
       "Date": "2003-01-02",
-      "PredictedClose": 0.0925
+      "PredictedClose": 0.0873
     },
     {
       "Date": "2003-02-03",
-      "PredictedClose": 0.2112
+      "PredictedClose": 0.2138
     },
     {
       "Date": "2003-03-03",
-      "PredictedClose": 0.2637
+      "PredictedClose": 0.2626
     },
     {
       "Date": "2003-04-01",
-      "PredictedClose": 0.3258
+      "PredictedClose": 0.3342
     },
     {
       "Date": "2003-05-01",
-      "PredictedClose": 0.2865
+      "PredictedClose": 0.2806
     },
     {
       "Date": "2003-06-02",
-      "PredictedClose": 0.1638
+      "PredictedClose": 0.1615
     },
     {
       "Date": "2003-07-01",
-      "PredictedClose": 0.194
+      "PredictedClose": 0.1923
     },
     {
       "Date": "2003-08-01",
-      "PredictedClose": 0.1211
+      "PredictedClose": 0.1206
     },
     {
       "Date": "2003-09-02",
-      "PredictedClose": 0.2
+      "PredictedClose": 0.2008
     },
     {
       "Date": "2003-10-01",
-      "PredictedClose": 0.135
+      "PredictedClose": 0.1346
     },
     {
       "Date": "2003-11-03",
-      "PredictedClose": 0.1914
+      "PredictedClose": 0.1969
     },
     {
       "Date": "2003-12-01",
-      "PredictedClose": 0.3776
+      "PredictedClose": 0.359
     },
     {
       "Date": "2004-01-02",
-      "PredictedClose": 0.434
+      "PredictedClose": 0.4305
     },
     {
       "Date": "2004-02-02",
-      "PredictedClose": 0.5408
+      "PredictedClose": 0.5346
     },
     {
       "Date": "2004-03-01",
-      "PredictedClose": 0.5081
+      "PredictedClose": 0.508
     },
     {
       "Date": "2004-04-01",
-      "PredictedClose": 0.4723
+      "PredictedClose": 0.4726
     },
     {
       "Date": "2004-05-03",
-      "PredictedClose": 0.4495
+      "PredictedClose": 0.4419
     },
     {
       "Date": "2004-06-01",
-      "PredictedClose": 0.3929
+      "PredictedClose": 0.383
     },
     {
       "Date": "2004-07-01",
-      "PredictedClose": 0.3633
+      "PredictedClose": 0.3626
     },
     {
       "Date": "2004-08-02",
-      "PredictedClose": 0.3545
+      "PredictedClose": 0.3553
     },
     {
       "Date": "2004-09-01",
-      "PredictedClose": 0.355
+      "PredictedClose": 0.3555
     },
     {
       "Date": "2004-10-01",
-      "PredictedClose": 0.4708
+      "PredictedClose": 0.4717
     },
     {
       "Date": "2004-11-01",
-      "PredictedClose": 0.5399
+      "PredictedClose": 0.5464
     },
     {
       "Date": "2004-12-01",
-      "PredictedClose": 0.5692
+      "PredictedClose": 0.5754
     },
     {
       "Date": "2005-01-03",
-      "PredictedClose": 0.646
+      "PredictedClose": 0.6455
     },
     {
       "Date": "2005-02-01",
-      "PredictedClose": 0.8209
+      "PredictedClose": 0.82
     },
     {
       "Date": "2005-03-01",
-      "PredictedClose": 1.1143
+      "PredictedClose": 1.1115
     },
     {
       "Date": "2005-04-01",
-      "PredictedClose": 1.2832
+      "PredictedClose": 1.283
     },
     {
       "Date": "2005-05-02",
-      "PredictedClose": 1.3573
+      "PredictedClose": 1.3598
     },
     {
       "Date": "2005-06-01",
-      "PredictedClose": 1.5986
+      "PredictedClose": 1.5966
     },
     {
       "Date": "2005-07-01",
-      "PredictedClose": 1.6184
+      "PredictedClose": 1.6163
     },
     {
       "Date": "2005-08-01",
-      "PredictedClose": 1.401
+      "PredictedClose": 1.4022
     },
     {
       "Date": "2005-09-01",
-      "PredictedClose": 1.2648
+      "PredictedClose": 1.256
     },
     {
       "Date": "2005-10-03",
-      "PredictedClose": 1.127
+      "PredictedClose": 1.1205
     },
     {
       "Date": "2005-11-01",
-      "PredictedClose": 1.3895
+      "PredictedClose": 1.3906
     },
     {
       "Date": "2005-12-01",
-      "PredictedClose": 1.4746
+      "PredictedClose": 1.4803
     },
     {
       "Date": "2006-01-03",
-      "PredictedClose": 1.8077
+      "PredictedClose": 1.8134
     },
     {
       "Date": "2006-02-01",
-      "PredictedClose": 1.9078
+      "PredictedClose": 1.8804
     },
     {
       "Date": "2006-03-01",
-      "PredictedClose": 2.4682
+      "PredictedClose": 2.4442
     },
     {
       "Date": "2006-04-03",
-      "PredictedClose": 2.753
+      "PredictedClose": 2.7565
     },
     {
       "Date": "2006-05-01",
@@ -1068,979 +1068,979 @@
     },
     {
       "Date": "2006-06-01",
-      "PredictedClose": 2.4569
+      "PredictedClose": 2.4584
     },
     {
       "Date": "2006-07-03",
-      "PredictedClose": 1.8722
+      "PredictedClose": 1.8816
     },
     {
       "Date": "2006-08-01",
-      "PredictedClose": 2.0265
+      "PredictedClose": 2.0305
     },
     {
       "Date": "2006-09-01",
-      "PredictedClose": 2.0867
+      "PredictedClose": 2.0948
     },
     {
       "Date": "2006-10-02",
-      "PredictedClose": 1.8421
+      "PredictedClose": 1.8445
     },
     {
       "Date": "2006-11-01",
-      "PredictedClose": 1.7781
+      "PredictedClose": 1.7836
     },
     {
       "Date": "2006-12-01",
-      "PredictedClose": 2.2771
+      "PredictedClose": 2.2271
     },
     {
       "Date": "2007-01-03",
-      "PredictedClose": 2.5749
+      "PredictedClose": 2.659
     },
     {
       "Date": "2007-02-01",
-      "PredictedClose": 2.7725
+      "PredictedClose": 2.7581
     },
     {
       "Date": "2007-03-01",
-      "PredictedClose": 2.8078
+      "PredictedClose": 2.8122
     },
     {
       "Date": "2007-04-02",
-      "PredictedClose": 2.7327
+      "PredictedClose": 2.7391
     },
     {
       "Date": "2007-05-01",
-      "PredictedClose": 2.5705
+      "PredictedClose": 2.5712
     },
     {
       "Date": "2007-06-01",
-      "PredictedClose": 2.3368
+      "PredictedClose": 2.3425
     },
     {
       "Date": "2007-07-02",
-      "PredictedClose": 2.4757
+      "PredictedClose": 2.4715
     },
     {
       "Date": "2007-08-01",
-      "PredictedClose": 2.758
+      "PredictedClose": 2.7549
     },
     {
       "Date": "2007-09-04",
-      "PredictedClose": 3.6266
+      "PredictedClose": 3.6173
     },
     {
       "Date": "2007-10-01",
-      "PredictedClose": 4.1852
+      "PredictedClose": 4.1804
     },
     {
       "Date": "2007-11-01",
-      "PredictedClose": 5.5245
+      "PredictedClose": 5.5651
     },
     {
       "Date": "2007-12-03",
-      "PredictedClose": 5.6107
+      "PredictedClose": 5.5927
     },
     {
       "Date": "2008-01-02",
-      "PredictedClose": 5.5867
+      "PredictedClose": 5.5849
     },
     {
       "Date": "2008-02-01",
-      "PredictedClose": 6.3266
+      "PredictedClose": 6.3437
     },
     {
       "Date": "2008-03-03",
-      "PredictedClose": 6.3253
+      "PredictedClose": 6.2788
     },
     {
       "Date": "2008-04-01",
-      "PredictedClose": 6.4346
+      "PredictedClose": 6.453
     },
     {
       "Date": "2008-05-01",
-      "PredictedClose": 5.1596
+      "PredictedClose": 5.1265
     },
     {
       "Date": "2008-06-02",
-      "PredictedClose": 4.2187
+      "PredictedClose": 4.1917
     },
     {
       "Date": "2008-07-01",
-      "PredictedClose": 3.8784
+      "PredictedClose": 3.8712
     },
     {
       "Date": "2008-08-01",
-      "PredictedClose": 4.5635
+      "PredictedClose": 4.5871
     },
     {
       "Date": "2008-09-02",
-      "PredictedClose": 5.2147
+      "PredictedClose": 5.1677
     },
     {
       "Date": "2008-10-01",
-      "PredictedClose": 5.6688
+      "PredictedClose": 5.6719
     },
     {
       "Date": "2008-11-03",
-      "PredictedClose": 5.7778
+      "PredictedClose": 5.7713
     },
     {
       "Date": "2008-12-01",
-      "PredictedClose": 6.1504
+      "PredictedClose": 6.2313
     },
     {
       "Date": "2009-01-02",
-      "PredictedClose": 5.3569
+      "PredictedClose": 5.3383
     },
     {
       "Date": "2009-02-02",
-      "PredictedClose": 3.5409
+      "PredictedClose": 3.5648
     },
     {
       "Date": "2009-03-02",
-      "PredictedClose": 1.5965
+      "PredictedClose": 1.6115
     },
     {
       "Date": "2009-04-01",
-      "PredictedClose": 0.3771
+      "PredictedClose": 0.2529
     },
     {
       "Date": "2009-05-01",
-      "PredictedClose": 0.4137
+      "PredictedClose": 0.444
     },
     {
       "Date": "2009-06-01",
-      "PredictedClose": 1.5742
+      "PredictedClose": 1.531
     },
     {
       "Date": "2009-07-01",
-      "PredictedClose": 2.1325
+      "PredictedClose": 2.1258
     },
     {
       "Date": "2009-08-03",
-      "PredictedClose": 2.9528
+      "PredictedClose": 3.1269
     },
     {
       "Date": "2009-09-01",
-      "PredictedClose": 4.0567
+      "PredictedClose": 4.0504
     },
     {
       "Date": "2009-10-01",
-      "PredictedClose": 4.519
+      "PredictedClose": 4.5781
     },
     {
       "Date": "2009-11-02",
-      "PredictedClose": 5.0346
+      "PredictedClose": 5.1198
     },
     {
       "Date": "2009-12-01",
-      "PredictedClose": 5.5416
+      "PredictedClose": 5.5873
     },
     {
       "Date": "2010-01-04",
-      "PredictedClose": 6.2422
+      "PredictedClose": 6.1965
     },
     {
       "Date": "2010-02-01",
-      "PredictedClose": 5.6716
+      "PredictedClose": 5.6772
     },
     {
       "Date": "2010-03-01",
-      "PredictedClose": 5.7545
+      "PredictedClose": 5.7245
     },
     {
       "Date": "2010-04-01",
-      "PredictedClose": 6.0937
+      "PredictedClose": 6.0977
     },
     {
       "Date": "2010-05-03",
-      "PredictedClose": 7.2948
+      "PredictedClose": 7.0239
     },
     {
       "Date": "2010-06-01",
-      "PredictedClose": 7.7433
+      "PredictedClose": 7.7734
     },
     {
       "Date": "2010-07-01",
-      "PredictedClose": 8.5353
+      "PredictedClose": 8.5358
     },
     {
       "Date": "2010-08-02",
-      "PredictedClose": 9.3955
+      "PredictedClose": 9.3692
     },
     {
       "Date": "2010-09-01",
-      "PredictedClose": 9.1903
+      "PredictedClose": 9.1689
     },
     {
       "Date": "2010-10-01",
-      "PredictedClose": 9.1562
+      "PredictedClose": 9.213
     },
     {
       "Date": "2010-11-01",
-      "PredictedClose": 9.3376
+      "PredictedClose": 9.3083
     },
     {
       "Date": "2010-12-01",
-      "PredictedClose": 7.3462
+      "PredictedClose": 7.3397
     },
     {
       "Date": "2011-01-03",
-      "PredictedClose": 8.3032
+      "PredictedClose": 8.203
     },
     {
       "Date": "2011-02-01",
-      "PredictedClose": 8.5505
+      "PredictedClose": 8.5822
     },
     {
       "Date": "2011-03-01",
-      "PredictedClose": 9.2904
+      "PredictedClose": 9.2848
     },
     {
       "Date": "2011-04-01",
-      "PredictedClose": 10.4873
+      "PredictedClose": 10.7632
     },
     {
       "Date": "2011-05-02",
-      "PredictedClose": 12.6421
+      "PredictedClose": 12.6657
     },
     {
       "Date": "2011-06-01",
-      "PredictedClose": 13.1755
+      "PredictedClose": 13.2004
     },
     {
       "Date": "2011-07-01",
-      "PredictedClose": 12.8641
+      "PredictedClose": 12.8855
     },
     {
       "Date": "2011-08-01",
-      "PredictedClose": 11.7185
+      "PredictedClose": 11.6449
     },
     {
       "Date": "2011-09-01",
-      "PredictedClose": 10.5064
+      "PredictedClose": 10.4938
     },
     {
       "Date": "2011-10-03",
-      "PredictedClose": 9.6622
+      "PredictedClose": 9.6949
     },
     {
       "Date": "2011-11-01",
-      "PredictedClose": 11.5641
+      "PredictedClose": 11.5339
     },
     {
       "Date": "2011-12-01",
-      "PredictedClose": 12.181
+      "PredictedClose": 12.3119
     },
     {
       "Date": "2012-01-03",
-      "PredictedClose": 12.4518
+      "PredictedClose": 12.4233
     },
     {
       "Date": "2012-02-01",
-      "PredictedClose": 12.0626
+      "PredictedClose": 12.0591
     },
     {
       "Date": "2012-03-01",
-      "PredictedClose": 11.3728
+      "PredictedClose": 11.4074
     },
     {
       "Date": "2012-04-02",
-      "PredictedClose": 12.2814
+      "PredictedClose": 12.2976
     },
     {
       "Date": "2012-05-01",
-      "PredictedClose": 13.8183
+      "PredictedClose": 13.7408
     },
     {
       "Date": "2012-06-01",
-      "PredictedClose": 16.9735
+      "PredictedClose": 17.1273
     },
     {
       "Date": "2012-07-02",
-      "PredictedClose": 21.0928
+      "PredictedClose": 21.1998
     },
     {
       "Date": "2012-08-01",
-      "PredictedClose": 20.3563
+      "PredictedClose": 20.3071
     },
     {
       "Date": "2012-09-04",
-      "PredictedClose": 17.829
+      "PredictedClose": 18.209
     },
     {
       "Date": "2012-10-01",
-      "PredictedClose": 19.9179
+      "PredictedClose": 20.2911
     },
     {
       "Date": "2012-11-01",
-      "PredictedClose": 20.6189
+      "PredictedClose": 20.4669
     },
     {
       "Date": "2012-12-03",
-      "PredictedClose": 23.6756
+      "PredictedClose": 23.6636
     },
     {
       "Date": "2013-01-02",
-      "PredictedClose": 23.8444
+      "PredictedClose": 24.1582
     },
     {
       "Date": "2013-02-01",
-      "PredictedClose": 20.0491
+      "PredictedClose": 19.5532
     },
     {
       "Date": "2013-03-01",
-      "PredictedClose": 16.5208
+      "PredictedClose": 17.0235
     },
     {
       "Date": "2013-04-01",
-      "PredictedClose": 16.8525
+      "PredictedClose": 16.9885
     },
     {
       "Date": "2013-05-01",
-      "PredictedClose": 15.7648
+      "PredictedClose": 15.5857
     },
     {
       "Date": "2013-06-03",
-      "PredictedClose": 12.2624
+      "PredictedClose": 12.3978
     },
     {
       "Date": "2013-07-01",
-      "PredictedClose": 8.8358
+      "PredictedClose": 8.8389
     },
     {
       "Date": "2013-08-01",
-      "PredictedClose": 8.3849
+      "PredictedClose": 8.147
     },
     {
       "Date": "2013-09-03",
-      "PredictedClose": 13.5413
+      "PredictedClose": 12.9572
     },
     {
       "Date": "2013-10-01",
-      "PredictedClose": 13.3954
+      "PredictedClose": 13.4094
     },
     {
       "Date": "2013-11-01",
-      "PredictedClose": 12.0543
+      "PredictedClose": 12.075
     },
     {
       "Date": "2013-12-02",
-      "PredictedClose": 12.8561
+      "PredictedClose": 12.1688
     },
     {
       "Date": "2014-01-02",
-      "PredictedClose": 13.4239
+      "PredictedClose": 13.4146
     },
     {
       "Date": "2014-02-03",
-      "PredictedClose": 15.3553
+      "PredictedClose": 15.6404
     },
     {
       "Date": "2014-03-03",
-      "PredictedClose": 17.4503
+      "PredictedClose": 17.2345
     },
     {
       "Date": "2014-04-01",
-      "PredictedClose": 20.1212
+      "PredictedClose": 20.069
     },
     {
       "Date": "2014-05-01",
-      "PredictedClose": 19.2634
+      "PredictedClose": 19.3382
     },
     {
       "Date": "2014-06-02",
-      "PredictedClose": 18.8233
+      "PredictedClose": 18.8835
     },
     {
       "Date": "2014-07-01",
-      "PredictedClose": 16.6732
+      "PredictedClose": 16.656
     },
     {
       "Date": "2014-08-01",
-      "PredictedClose": 18.1241
+      "PredictedClose": 17.9406
     },
     {
       "Date": "2014-09-02",
-      "PredictedClose": 21.9244
+      "PredictedClose": 22.7132
     },
     {
       "Date": "2014-10-01",
-      "PredictedClose": 25.3538
+      "PredictedClose": 25.413
     },
     {
       "Date": "2014-11-03",
-      "PredictedClose": 24.5827
+      "PredictedClose": 24.6733
     },
     {
       "Date": "2014-12-01",
-      "PredictedClose": 22.8442
+      "PredictedClose": 22.8204
     },
     {
       "Date": "2015-01-02",
-      "PredictedClose": 21.4074
+      "PredictedClose": 21.5014
     },
     {
       "Date": "2015-02-02",
-      "PredictedClose": 21.3698
+      "PredictedClose": 21.4155
     },
     {
       "Date": "2015-03-02",
-      "PredictedClose": 26.0418
+      "PredictedClose": 25.9326
     },
     {
       "Date": "2015-04-01",
-      "PredictedClose": 25.922
+      "PredictedClose": 25.9303
     },
     {
       "Date": "2015-05-01",
-      "PredictedClose": 26.5827
+      "PredictedClose": 26.3804
     },
     {
       "Date": "2015-06-01",
-      "PredictedClose": 31.0946
+      "PredictedClose": 31.2054
     },
     {
       "Date": "2015-07-01",
-      "PredictedClose": 33.5439
+      "PredictedClose": 33.5596
     },
     {
       "Date": "2015-08-03",
-      "PredictedClose": 34.2746
+      "PredictedClose": 35.2399
     },
     {
       "Date": "2015-09-01",
-      "PredictedClose": 32.971
+      "PredictedClose": 32.8336
     },
     {
       "Date": "2015-10-01",
-      "PredictedClose": 31.4161
+      "PredictedClose": 31.3943
     },
     {
       "Date": "2015-11-02",
-      "PredictedClose": 31.5819
+      "PredictedClose": 31.5568
     },
     {
       "Date": "2015-12-01",
-      "PredictedClose": 25.3712
+      "PredictedClose": 25.4105
     },
     {
       "Date": "2016-01-04",
-      "PredictedClose": 22.0653
+      "PredictedClose": 22.0249
     },
     {
       "Date": "2016-02-01",
-      "PredictedClose": 22.1099
+      "PredictedClose": 21.9632
     },
     {
       "Date": "2016-03-01",
-      "PredictedClose": 22.2772
+      "PredictedClose": 22.2115
     },
     {
       "Date": "2016-04-01",
-      "PredictedClose": 21.3629
+      "PredictedClose": 21.4025
     },
     {
       "Date": "2016-05-02",
-      "PredictedClose": 20.2644
+      "PredictedClose": 20.3406
     },
     {
       "Date": "2016-06-01",
-      "PredictedClose": 19.5343
+      "PredictedClose": 19.5606
     },
     {
       "Date": "2016-07-01",
-      "PredictedClose": 22.1576
+      "PredictedClose": 22.0994
     },
     {
       "Date": "2016-08-01",
-      "PredictedClose": 22.2911
+      "PredictedClose": 22.2747
     },
     {
       "Date": "2016-09-01",
-      "PredictedClose": 20.2394
+      "PredictedClose": 20.2537
     },
     {
       "Date": "2016-10-03",
-      "PredictedClose": 18.1285
+      "PredictedClose": 18.3034
     },
     {
       "Date": "2016-11-01",
-      "PredictedClose": 20.1044
+      "PredictedClose": 20.2011
     },
     {
       "Date": "2016-12-01",
-      "PredictedClose": 24.4063
+      "PredictedClose": 24.4902
     },
     {
       "Date": "2017-01-03",
-      "PredictedClose": 26.6959
+      "PredictedClose": 25.7336
     },
     {
       "Date": "2017-02-01",
-      "PredictedClose": 27.6692
+      "PredictedClose": 27.9749
     },
     {
       "Date": "2017-03-01",
-      "PredictedClose": 26.2195
+      "PredictedClose": 26.2346
     },
     {
       "Date": "2017-04-03",
-      "PredictedClose": 29.1714
+      "PredictedClose": 29.183
     },
     {
       "Date": "2017-05-01",
-      "PredictedClose": 31.1633
+      "PredictedClose": 31.1756
     },
     {
       "Date": "2017-06-01",
-      "PredictedClose": 36.1722
+      "PredictedClose": 36.4239
     },
     {
       "Date": "2017-07-03",
-      "PredictedClose": 37.0992
+      "PredictedClose": 37.0892
     },
     {
       "Date": "2017-08-01",
-      "PredictedClose": 35.3183
+      "PredictedClose": 35.2287
     },
     {
       "Date": "2017-09-01",
-      "PredictedClose": 37.473
+      "PredictedClose": 37.408
     },
     {
       "Date": "2017-10-02",
-      "PredictedClose": 38.4951
+      "PredictedClose": 38.5368
     },
     {
       "Date": "2017-11-01",
-      "PredictedClose": 38.55
+      "PredictedClose": 38.4242
     },
     {
       "Date": "2017-12-01",
-      "PredictedClose": 42.1411
+      "PredictedClose": 42.2911
     },
     {
       "Date": "2018-01-02",
-      "PredictedClose": 40.0411
+      "PredictedClose": 39.9846
     },
     {
       "Date": "2018-02-01",
-      "PredictedClose": 39.69
+      "PredictedClose": 39.5729
     },
     {
       "Date": "2018-03-01",
-      "PredictedClose": 44.2128
+      "PredictedClose": 44.2002
     },
     {
       "Date": "2018-04-02",
-      "PredictedClose": 46.538
+      "PredictedClose": 46.1203
     },
     {
       "Date": "2018-05-01",
-      "PredictedClose": 45.9529
+      "PredictedClose": 45.8209
     },
     {
       "Date": "2018-06-01",
-      "PredictedClose": 45.7643
+      "PredictedClose": 45.6796
     },
     {
       "Date": "2018-07-02",
-      "PredictedClose": 42.4776
+      "PredictedClose": 42.5016
     },
     {
       "Date": "2018-08-01",
-      "PredictedClose": 40.6272
+      "PredictedClose": 40.655
     },
     {
       "Date": "2018-09-04",
-      "PredictedClose": 44.7453
+      "PredictedClose": 44.71
     },
     {
       "Date": "2018-10-01",
-      "PredictedClose": 46.5693
+      "PredictedClose": 46.2912
     },
     {
       "Date": "2018-11-01",
-      "PredictedClose": 51.0419
+      "PredictedClose": 50.8348
     },
     {
       "Date": "2018-12-03",
-      "PredictedClose": 55.681
+      "PredictedClose": 55.9431
     },
     {
       "Date": "2019-01-02",
-      "PredictedClose": 56.5562
+      "PredictedClose": 56.5568
     },
     {
       "Date": "2019-02-01",
-      "PredictedClose": 57.8914
+      "PredictedClose": 57.6855
     },
     {
       "Date": "2019-03-01",
-      "PredictedClose": 46.3066
+      "PredictedClose": 47.4448
     },
     {
       "Date": "2019-04-01",
-      "PredictedClose": 38.2648
+      "PredictedClose": 38.0761
     },
     {
       "Date": "2019-05-01",
-      "PredictedClose": 33.4036
+      "PredictedClose": 34.2221
     },
     {
       "Date": "2019-06-03",
-      "PredictedClose": 38.8942
+      "PredictedClose": 37.9378
     },
     {
       "Date": "2019-07-01",
-      "PredictedClose": 34.2448
+      "PredictedClose": 34.2618
     },
     {
       "Date": "2019-08-01",
-      "PredictedClose": 56.3341
+      "PredictedClose": 57.0596
     },
     {
       "Date": "2019-09-03",
-      "PredictedClose": 45.0053
+      "PredictedClose": 45.5281
     },
     {
       "Date": "2019-10-01",
-      "PredictedClose": 48.0715
+      "PredictedClose": 48.2797
     },
     {
       "Date": "2019-11-01",
-      "PredictedClose": 54.1152
+      "PredictedClose": 54.1055
     },
     {
       "Date": "2019-12-02",
-      "PredictedClose": 52.8191
+      "PredictedClose": 53.0305
     },
     {
       "Date": "2020-01-02",
-      "PredictedClose": 53.6145
+      "PredictedClose": 54.0983
     },
     {
       "Date": "2020-02-03",
-      "PredictedClose": 61.0084
+      "PredictedClose": 60.6181
     },
     {
       "Date": "2020-03-02",
-      "PredictedClose": 68.9614
+      "PredictedClose": 68.9859
     },
     {
       "Date": "2020-04-01",
-      "PredictedClose": 77.8428
+      "PredictedClose": 77.799
     },
     {
       "Date": "2020-05-01",
-      "PredictedClose": 89.5418
+      "PredictedClose": 89.5549
     },
     {
       "Date": "2020-06-01",
-      "PredictedClose": 86.1238
+      "PredictedClose": 85.9636
     },
     {
       "Date": "2020-07-01",
-      "PredictedClose": 78.7507
+      "PredictedClose": 78.3693
     },
     {
       "Date": "2020-08-03",
-      "PredictedClose": 66.9239
+      "PredictedClose": 67.6112
     },
     {
       "Date": "2020-09-01",
-      "PredictedClose": 80.7836
+      "PredictedClose": 80.391
     },
     {
       "Date": "2020-10-01",
-      "PredictedClose": 93.7954
+      "PredictedClose": 93.806
     },
     {
       "Date": "2020-11-02",
-      "PredictedClose": 118.429
+      "PredictedClose": 113.1302
     },
     {
       "Date": "2020-12-01",
-      "PredictedClose": 134.0089
+      "PredictedClose": 135.6802
     },
     {
       "Date": "2021-01-04",
-      "PredictedClose": 123.4642
+      "PredictedClose": 122.1687
     },
     {
       "Date": "2021-02-01",
-      "PredictedClose": 128.5008
+      "PredictedClose": 128.206
     },
     {
       "Date": "2021-03-01",
-      "PredictedClose": 129.3763
+      "PredictedClose": 129.6167
     },
     {
       "Date": "2021-04-01",
-      "PredictedClose": 142.1274
+      "PredictedClose": 142.8898
     },
     {
       "Date": "2021-05-03",
-      "PredictedClose": 153.1468
+      "PredictedClose": 153.1135
     },
     {
       "Date": "2021-06-01",
-      "PredictedClose": 140.4779
+      "PredictedClose": 139.6874
     },
     {
       "Date": "2021-07-01",
-      "PredictedClose": 126.8557
+      "PredictedClose": 129.6112
     },
     {
       "Date": "2021-08-02",
-      "PredictedClose": 143.3933
+      "PredictedClose": 144.481
     },
     {
       "Date": "2021-09-01",
-      "PredictedClose": 148.8717
+      "PredictedClose": 149.7464
     },
     {
       "Date": "2021-10-01",
-      "PredictedClose": 144.6718
+      "PredictedClose": 144.4742
     },
     {
       "Date": "2021-11-01",
-      "PredictedClose": 156.12
+      "PredictedClose": 156.2131
     },
     {
       "Date": "2021-12-01",
-      "PredictedClose": 148.8047
+      "PredictedClose": 149.3204
     },
     {
       "Date": "2022-01-03",
-      "PredictedClose": 156.2265
+      "PredictedClose": 156.4186
     },
     {
       "Date": "2022-02-01",
-      "PredictedClose": 159.4941
+      "PredictedClose": 155.3658
     },
     {
       "Date": "2022-03-01",
-      "PredictedClose": 156.9047
+      "PredictedClose": 156.9376
     },
     {
       "Date": "2022-04-01",
-      "PredictedClose": 171.0985
+      "PredictedClose": 171.4167
     },
     {
       "Date": "2022-05-02",
-      "PredictedClose": 165.8555
+      "PredictedClose": 166.3143
     },
     {
       "Date": "2022-06-01",
-      "PredictedClose": 163.1398
+      "PredictedClose": 163.0927
     },
     {
       "Date": "2022-07-01",
-      "PredictedClose": 179.788
+      "PredictedClose": 179.9001
     },
     {
       "Date": "2022-08-01",
-      "PredictedClose": 182.0573
+      "PredictedClose": 181.9943
     },
     {
       "Date": "2022-09-01",
-      "PredictedClose": 175.412
+      "PredictedClose": 175.6604
     },
     {
       "Date": "2022-10-03",
-      "PredictedClose": 139.9924
+      "PredictedClose": 139.3817
     },
     {
       "Date": "2022-11-01",
-      "PredictedClose": 139.609
+      "PredictedClose": 139.1272
     },
     {
       "Date": "2022-12-01",
-      "PredictedClose": 148.4086
+      "PredictedClose": 148.6795
     },
     {
       "Date": "2023-01-03",
-      "PredictedClose": 149.891
+      "PredictedClose": 148.9587
     },
     {
       "Date": "2023-02-01",
-      "PredictedClose": 143.2078
+      "PredictedClose": 143.2213
     },
     {
       "Date": "2023-03-01",
-      "PredictedClose": 130.8595
+      "PredictedClose": 131.1658
     },
     {
       "Date": "2023-04-03",
-      "PredictedClose": 111.8459
+      "PredictedClose": 110.008
     },
     {
       "Date": "2023-05-01",
-      "PredictedClose": 108.4399
+      "PredictedClose": 108.5127
     },
     {
       "Date": "2023-06-01",
-      "PredictedClose": 113.2973
+      "PredictedClose": 113.0188
     },
     {
       "Date": "2023-07-03",
-      "PredictedClose": 137.9264
+      "PredictedClose": 138.2231
     },
     {
       "Date": "2023-08-01",
-      "PredictedClose": 162.8529
+      "PredictedClose": 162.0814
     },
     {
       "Date": "2023-09-01",
-      "PredictedClose": 200.2816
+      "PredictedClose": 200.4287
     },
     {
       "Date": "2023-10-02",
-      "PredictedClose": 215.0693
+      "PredictedClose": 215.2121
     },
     {
       "Date": "2023-11-01",
-      "PredictedClose": 226.9508
+      "PredictedClose": 225.0939
     },
     {
       "Date": "2023-12-01",
-      "PredictedClose": 213.9023
+      "PredictedClose": 213.3718
     },
     {
       "Date": "2024-01-02",
-      "PredictedClose": 190.8997
+      "PredictedClose": 190.0571
     },
     {
       "Date": "2024-02-01",
-      "PredictedClose": 199.7308
+      "PredictedClose": 200.18
     },
     {
       "Date": "2024-03-01",
-      "PredictedClose": 190.3973
+      "PredictedClose": 189.9325
     },
     {
       "Date": "2024-04-01",
-      "PredictedClose": 181.5367
+      "PredictedClose": 178.262
     },
     {
       "Date": "2024-05-01",
-      "PredictedClose": 181.4279
+      "PredictedClose": 179.9867
     },
     {
       "Date": "2024-06-03",
-      "PredictedClose": 174.12
+      "PredictedClose": 174.5188
     },
     {
       "Date": "2024-07-01",
-      "PredictedClose": 162.2206
+      "PredictedClose": 163.0593
     },
     {
       "Date": "2024-08-01",
-      "PredictedClose": 161.4051
+      "PredictedClose": 162.0683
     },
     {
       "Date": "2024-09-03",
-      "PredictedClose": 181.9371
+      "PredictedClose": 182.3171
     },
     {
       "Date": "2024-10-01",
-      "PredictedClose": 197.7607
+      "PredictedClose": 197.3649
     },
     {
       "Date": "2024-11-01",
-      "PredictedClose": 226.1684
+      "PredictedClose": 225.4341
     },
     {
       "Date": "2024-12-02",
-      "PredictedClose": 233.3944
+      "PredictedClose": 233.5938
     },
     {
       "Date": "2025-01-02",
-      "PredictedClose": 248.7107
+      "PredictedClose": 247.5578
     },
     {
       "Date": "2025-02-03",
-      "PredictedClose": 269.2967
+      "PredictedClose": 270.4806
     },
     {
       "Date": "2025-03-03",
-      "PredictedClose": 246.3592
+      "PredictedClose": 246.9325
     },
     {
       "Date": "2025-04-01",
-      "PredictedClose": 293.6263
+      "PredictedClose": 294.5146
     },
     {
       "Date": "2025-05-01",
-      "PredictedClose": 260.9171
+      "PredictedClose": 255.8697
     },
     {
       "Date": "2025-06-02",
-      "PredictedClose": 254.8888
+      "PredictedClose": 256.1048
     },
     {
       "Date": "2025-07-01",
-      "PredictedClose": 258.6701
+      "PredictedClose": 258.2745
     },
     {
       "Date": "2025-08-01",
-      "PredictedClose": 244.2156
+      "PredictedClose": 244.5493
     },
     {
       "Date": "2025-09-02",
-      "PredictedClose": 211.4078
+      "PredictedClose": 211.6476
     },
     {
       "Date": "2025-10-01",
-      "PredictedClose": 186.562
+      "PredictedClose": 186.05
     },
     {
       "Date": "2025-11-03",
-      "PredictedClose": 169.033
+      "PredictedClose": 168.6889
     },
     {
       "Date": "2025-12-01",
-      "PredictedClose": 207.1418
+      "PredictedClose": 207.8637
     },
     {
       "Date": "2026-01-02",
-      "PredictedClose": 246.1378
+      "PredictedClose": 241.1078
     },
     {
       "Date": "2026-02-02",
-      "PredictedClose": 279.1387
+      "PredictedClose": 276.5145
     },
     {
       "Date": "2026-03-02",
-      "PredictedClose": 304.4252
+      "PredictedClose": 304.7393
     },
     {
       "Date": "2026-04-01",
-      "PredictedClose": 284.5915
+      "PredictedClose": 283.8902
     },
     {
       "Date": "2026-05-01",
-      "PredictedClose": 263.3492
+      "PredictedClose": 263.1931
     },
     {
       "Date": "2026-06-01",
-      "PredictedClose": 278.7722
+      "PredictedClose": 278.7059
     },
     {
       "Date": "2026-07-01",
-      "PredictedClose": 294.814
+      "PredictedClose": 295.5661
     },
     {
       "Date": "2026-08-03",
-      "PredictedClose": 312.2565
+      "PredictedClose": 312.4203
     },
     {
       "Date": "2026-09-01",
-      "PredictedClose": 344.0591
+      "PredictedClose": 351.769
     }
   ]
 }
