@@ -32,10 +32,6 @@ jobs:
         run: |
           venv/bin/python fetch_stock.py
 
-      - name: Generate predictions
-        run: |
-          venv/bin/python generate_predictions.py
-
       - name: Check for changes in data files
         id: git_check
         run: |
@@ -44,10 +40,6 @@ jobs:
           CHANGED=false
           if ! git diff --quiet data.json; then
             echo "data.json has changed"
-            CHANGED=true
-          fi
-          if ! git diff --quiet predictions.json; then
-            echo "predictions.json has changed"
             CHANGED=true
           fi
           if [ "$CHANGED" = "false" ]; then
@@ -66,6 +58,5 @@ jobs:
           git fetch origin
           git rebase origin/main
           git stash pop
-          git add data.json predictions.json
-          git commit -m "Refresh stock data and predictions: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git commit -m "Refresh stock data: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
           git push origin HEAD:main
