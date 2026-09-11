@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AAPL Stock Price, Volume and Prediction Chart</title>
+    <title>AAPL Stock Price and Volume Chart</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         body {
@@ -74,11 +74,6 @@
             stroke: rgba(54, 162, 235, 1);
             stroke-width: 2;
         }
-        .prediction-line {
-            fill: none;
-            stroke: #ff0000; /* bright red for maximum visibility */
-            stroke-width: 3;
-        }
         .tooltip {
             position: absolute;
             padding: 10px;
@@ -125,7 +120,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>AAPL Stock Price, Volume and Prediction (All Time)</h1>
+        <h1>AAPL Stock Price and Volume (All Time)</h1>
         <div class="controls">
             <button class="btn" id="1y">1 Year</button>
             <button class="btn" id="5y">5 Years</button>
@@ -141,29 +136,23 @@
                 <div class="legend-color" style="background-color: rgba(54, 162, 235, 0.3); border: 1px solid rgba(54, 162, 235, 0.8);"></div>
                 <span>Volume</span>
             </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: #ff0000;"></div>
-                <span>Prediction (3-month lag)</span>
-            </div>
         </div>
         <div class="chart" id="chart"></div>
     </div>
 
     <script>
-        // Fetch both data.json and predictions.json
-        Promise.all([
-            fetch('./data.json').then(response => response.json()),
-            fetch('./predictions.json').then(response => response.json())
-        ])
-        .then(([stockData, predictionData]) => {
-            createChart(stockData, predictionData);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            document.getElementById('chart').innerHTML = '<p>Error loading stock data. Please check if data.json and predictions.json are available.</p>';
-        });
+        // Fetch data.json
+        fetch('./data.json')
+            .then(response => response.json())
+            .then(stockData => {
+                createChart(stockData);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                document.getElementById('chart').innerHTML = '<p>Error loading stock data. Please check if data.json is available.</p>';
+            });
 
-        function createChart(stockData, predictionData) {
+        function createChart(stockData) {
             const dataset = stockData.data;
             const symbol = stockData.symbol;
             const lastUpdated = stockData.last_updated;
@@ -181,12 +170,6 @@
 
             // Sort by date (just in case)
             dataset.sort((a, b) => a.date - b.date);
-
-            // Parse prediction data
-            const predictions = predictionData.data.map(p => ({
-                date: parseTime(p.Date),
-                predictedClose: +p.PredictedClose
-            }));
 
             // Set up dimensions
             const margin = {top: 20, right: 90, bottom: 40, left: 130};
@@ -231,17 +214,12 @@
                 .domain(d3.extent(dataset, d => d.date))
                 .range([0, width]);
 
-            // Price scale (left y-axis) - consider both actual close and predicted close
-            const initPriceDomainLow = Math.min(
-                d3.min(dataset, d => d.low),
-                d3.min(predictions, p => p.predictedClose)
-            ) * 0.95;
-            const initPriceDomainHigh = Math.max(
-                d3.max(dataset, d => d.high),
-                d3.max(predictions, p => p.predictedClose)
-            ) * 1.05;
+            // Price scale (left y-axis)
             const yPrice = d3.scaleLinear()
-                .domain([initPriceDomainLow, initPriceDomainHigh])
+                .domain([
+                    d3.min(dataset, d => d.low) * 0.95,
+                    d3.max(dataset, d => d.high) * 1.05
+                ])
                 .nice()
                 .range([height, 0]);
 
@@ -321,12 +299,6 @@
                 .y(d => yVolume(d.volume))
                 .curve(d3.curveMonotoneX);
 
-            const predictionLine = d3.line()
-                .defined(d => !isNaN(d.date) && !isNaN(d.predictedClose))
-                .x(p => x(p.date))
-                .y(p => yPrice(p.predictedClose))
-                .curve(d3.curveMonotoneX);
-
             // Add clipping rectangle to prevent overlap
             svg.append("defs").append("clipPath")
                 .attr("id", "chart-clip")
@@ -334,19 +306,6 @@
                 .attr("width", width)
                 .attr("height", height);
             
-            // Add glow effect for prediction line
-            const defs = svg.append("defs");
-            const filter = defs.append("filter")
-                .attr("id", "glow");
-            filter.append("feGaussianBlur")
-                .attr("stdDeviation", "2")
-                .attr("result", "coloredBlur");
-            const feMerge = filter.append("feMerge");
-            feMerge.append("feMergeNode")
-                .attr("in", "coloredBlur");
-            feMerge.append("feMergeNode")
-                .attr("in", "SourceGraphic");
-
             // Add the volume area first (bottom layer)
             svg.append("path")
                 .datum(dataset)
@@ -367,14 +326,6 @@
                 .attr("class", "price-line")
                 .attr("d", priceLine(dataset))
                 .attr("clip-path", "url(#chart-clip)");
-
-            // Add the prediction line (above price line)
-            svg.append("path")
-                .datum(predictions)
-                .attr("class", "prediction-line")
-                .attr("d", predictionLine(predictions))
-                .attr("clip-path", "url(#chart-clip)")
-                .attr("filter", "url(#glow)");
 
             // Add tooltip
             const tooltip = d3.select("body")
@@ -400,18 +351,6 @@
                     `Low: $${d.low.toFixed(2)}<br/>` +
                     `Close: $${d.close.toFixed(2)}<br/>` +
                     `Volume: ${d.volume.toLocaleString()}`
-                );
-                positionTooltip(event);
-            }
-
-            // Function to show tooltip for prediction data
-            function showPredictionTooltip(event, p) {
-                tooltip.transition()
-                       .duration(200)
-                       .style("opacity", .9);
-                tooltip.html(
-                    `<strong>${p.date.toDateString()}</strong><br/>` +
-                    `Predicted Close: $${p.predictedClose.toFixed(2)}`
                 );
                 positionTooltip(event);
             }
@@ -453,28 +392,12 @@
                 .on("mousemove", function(event) { positionTooltip(event); })
                 .on("mouseout", hideTooltip);
 
-            // Add invisible circles for prediction interaction
-            svg.selectAll(".prediction-circle")
-                .data(predictions)
-                .enter()
-                .append("circle")
-                .attr("class", "prediction-circle")
-                .attr("cx", p => x(p.date))
-                .attr("cy", p => yPrice(p.predictedClose))
-                .attr("r", 6)
-                .style("fill", "none")
-                .style("pointer-events", "all")
-                .on("mouseover", function(event, p) { showPredictionTooltip(event, p); })
-                .on("mousemove", function(event) { positionTooltip(event); })
-                .on("mouseout", hideTooltip);
-
             // Time range filtering functionality
             const buttons = d3.selectAll(".btn");
             let filteredData = dataset; // Start with all data
-            let filteredPredictions = predictions; // Start with all predictions
 
             // Initial display
-            updateChart(filteredData, filteredPredictions);
+            updateChart(filteredData);
 
             buttons.on("click", function() {
                 // Update active button
@@ -501,37 +424,19 @@
                 }
 
                 filteredData = dataset.filter(d => d.date >= startDate);
-                filteredPredictions = predictions.filter(p => p.date >= startDate);
-                updateChart(filteredData, filteredPredictions);
+                updateChart(filteredData);
             });
 
-            function updateChart(data, preds) {
+            function updateChart(data) {
                 // If no data, fall back to full dataset
-                if (data.length === 0 && preds.length === 0) {
+                if (data.length === 0) {
                     data = dataset;
-                    preds = predictions;
                 }
                 
-                // Update scales based on filtered data - handle empty arrays safely
-                let minPrice = Infinity;
-                let maxPrice = -Infinity;
+                // Update scales based on filtered data
+                const minPrice = d3.min(data, d => d.low) * 0.95;
+                const maxPrice = d3.max(data, d => d.high) * 1.05;
                 
-                if (data.length > 0) {
-                    minPrice = Math.min(minPrice, d3.min(data, d => d.low));
-                    maxPrice = Math.max(maxPrice, d3.max(data, d => d.high));
-                }
-                if (preds.length > 0) {
-                    minPrice = Math.min(minPrice, d3.min(preds, p => p.predictedClose));
-                    maxPrice = Math.max(maxPrice, d3.max(preds, p => p.predictedClose));
-                }
-                
-                // If still no valid data, use defaults
-                if (minPrice === Infinity) minPrice = 0;
-                if (maxPrice === -Infinity) maxPrice = 1;
-                
-                // Add padding and set domain
-                minPrice = minPrice * 0.95;
-                maxPrice = maxPrice * 1.05;
                 x.domain(d3.extent(data, d => d.date));
                 yPrice.domain([minPrice, maxPrice]).nice();
                 yVolume.domain([0, d3.max(data, d => d.volume) * 1.1]).nice();
@@ -563,7 +468,7 @@
                 svg.select(".y.axis.left").transition().duration(500).call(yAxisLeft);
                 svg.select(".y.axis.right").transition().duration(500).call(yAxisRight);
 
-                // Update lines - redraw in correct order: volume area, volume line, price line, prediction line (on top)
+                // Update lines - redraw in correct order: volume area, volume line, price line
                 // Volume area (bottom)
                 svg.select(".volume-area")
                     .transition()
@@ -581,13 +486,6 @@
                     .transition()
                     .duration(500)
                     .attr("d", data.length > 0 ? priceLine(data) : "M0,0 L0,0");
-
-                // Prediction line (top)
-                svg.select(".prediction-line")
-                    .transition()
-                    .duration(500)
-                    .attr("d", preds.length > 0 ? predictionLine(preds) : "M0,0 L0,0")
-                    .attr("filter", "url(#glow)");
 
                 // Update circles
                 // Price circles
@@ -637,30 +535,6 @@
                     .duration(500)
                     .attr("cx", d => x(d.date))
                     .attr("cy", d => yVolume(d.volume));
-
-                // Prediction circles
-                const predictionCircles = svg.selectAll(".prediction-circle")
-                    .data(preds, p => p.date.toISOString());
-
-                predictionCircles.enter()
-                    .append("circle")
-                    .attr("class", "prediction-circle")
-                    .attr("cx", p => x(p.date))
-                    .attr("cy", p => yPrice(p.predictedClose))
-                    .attr("r", 6)
-                    .style("fill", "none")
-                    .style("pointer-events", "all")
-                    .on("mouseover", function(event, p) { showPredictionTooltip(event, p); })
-                    .on("mousemove", function(event) { positionTooltip(event); })
-                    .on("mouseout", hideTooltip);
-
-                predictionCircles.exit().remove();
-
-                predictionCircles
-                    .transition()
-                    .duration(500)
-                    .attr("cx", p => x(p.date))
-                    .attr("cy", p => yPrice(p.predictedClose));
             }
 
             // Brush functionality for zoom/pan - only update on brush end (mouse up)
@@ -670,7 +544,7 @@
                     brushSelection = null;
                     x.domain(d3.extent(dataset, d => d.date));
                     // Update charts
-                    updateChart(filteredData, filteredPredictions);
+                    updateChart(filteredData);
                 } else {
                     // Ignore small brush movements (likely clicks)
                     const [x0, x1] = selection;
@@ -736,48 +610,22 @@
             function updateChartWithZoom() {
                 // Filter data to match current zoomed x domain
                 const zoomedData = dataset.filter(d => x(d.date) >= 0 && x(d.date) <= width);
-                const zoomedPredictions = predictions.filter(p => x(p.date) >= 0 && x(p.date) <= width);
                 
                 // Handle case where no data is in view
-                if (zoomedData.length === 0 && zoomedPredictions.length === 0) {
+                if (zoomedData.length === 0) {
                     // Reset to full domain if no data in view
                     x.domain(d3.extent(dataset, d => d.date));
-                    updateChart(filteredData, filteredPredictions);
+                    updateChart(filteredData);
                     return;
                 }
                 
                 // Update scales based on zoomed data
-                // Calculate min/max for price, handling empty arrays
-                let minPrice = Infinity;
-                let maxPrice = -Infinity;
-                
-                if (zoomedData.length > 0) {
-                    minPrice = Math.min(minPrice, d3.min(zoomedData, d => d.low));
-                    maxPrice = Math.max(maxPrice, d3.max(zoomedData, d => d.high));
-                }
-                if (zoomedPredictions.length > 0) {
-                    minPrice = Math.min(minPrice, d3.min(zoomedPredictions, p => p.predictedClose));
-                    maxPrice = Math.max(maxPrice, d3.max(zoomedPredictions, p => p.predictedClose));
-                }
-                
-                // If no data in view, use full dataset ranges
-                if (minPrice === Infinity) {
-                    minPrice = d3.min(dataset, d => d.low);
-                }
-                if (maxPrice === -Infinity) {
-                    maxPrice = d3.max(dataset, d => d.high);
-                }
-                
-                // Add padding and set domain
-                minPrice = minPrice * 0.95;
-                maxPrice = maxPrice * 1.05;
+                const minPrice = d3.min(zoomedData, d => d.low) * 0.95;
+                const maxPrice = d3.max(zoomedData, d => d.high) * 1.05;
                 yPrice.domain([minPrice, maxPrice]).nice();
                 
                 // Calculate volume domain
-                let maxVolume = 0;
-                if (zoomedData.length > 0) {
-                    maxVolume = d3.max(zoomedData, d => d.volume);
-                }
+                const maxVolume = d3.max(zoomedData, d => d.volume);
                 yVolume.domain([0, maxVolume * 1.1]).nice();
                 
                 // Update axes with appropriate tick intervals
@@ -823,12 +671,6 @@
                     .duration(500)
                     .attr("d", zoomedData.length > 0 ? priceLine(zoomedData) : "M0,0 L0,0");
                 
-                svg.select(".prediction-line")
-                    .transition()
-                    .duration(500)
-                    .attr("d", zoomedPredictions.length > 0 ? predictionLine(zoomedPredictions) : "M0,0 L0,0")
-                    .attr("filter", "url(#glow)");
-                
                 // Update circles with zoomed data
                 const updateCircles = (circleClass, data, valueFn, yAccessor) => {
                     const circles = svg.selectAll(`.${circleClass}`)
@@ -843,8 +685,7 @@
                         .style("fill", "none")
                         .style("pointer-events", "all")
                         .on("mouseover", function(event, d) { 
-                            if (circleClass === "price-circle") showTooltip(event, d);
-                            else if (circleClass === "prediction-circle") showPredictionTooltip(event, d);
+                            showTooltip(event, d);
                         })
                         .on("mousemove", function(event) { positionTooltip(event); })
                         .on("mouseout", hideTooltip);
@@ -861,9 +702,6 @@
                 // For price and volume, use zoomed dataset
                 updateCircles("price-circle", zoomedData, d => d, d => yPrice(d.close));
                 updateCircles("volume-circle", zoomedData, d => d, d => yVolume(d.volume));
-                
-                // For predictions, use zoomed predictions array
-                updateCircles("prediction-circle", zoomedPredictions, p => p, p => yPrice(p.predictedClose));
             }
         }
     </script>
