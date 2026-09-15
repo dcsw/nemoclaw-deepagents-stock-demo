@@ -1,2 +1,3 @@
 #!/bin/bash
-./venv/bin/pip install yfinance pandas
+uv venv
+uv pip install -r requirements.txt
