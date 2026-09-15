@@ -1,3 +1,3 @@
 #!/bin/bash
-uv venv
+uv venv --clear
 uv pip install -r requirements.txt
