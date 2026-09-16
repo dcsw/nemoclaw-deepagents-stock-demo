@@ -193,21 +193,7 @@
                 .attr("class", "brush")
                 .call(brush);
 
-            // Add right-click drag to pan (scroll left/right)
-            const drag = d3.drag()
-                .filter(event => event.button === 2) // Right click only
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended);
-
-            svg.call(drag);
-
-            // Prevent context menu on right-click
-            svg.on("contextmenu", event => event.preventDefault());
-
             let brushSelection = null; // Store the current brush selection
-            let dragStartX = null;
-            let dragStartDomain = null;
 
             // Set up scales (shared x-axis)
             const x = d3.scaleTime()
@@ -215,11 +201,10 @@
                 .range([0, width]);
 
             // Price scale (left y-axis)
+            const initPriceDomainLow = d3.min(dataset, d => d.low) * 0.95;
+            const initPriceDomainHigh = d3.max(dataset, d => d.high) * 1.05;
             const yPrice = d3.scaleLinear()
-                .domain([
-                    d3.min(dataset, d => d.low) * 0.95,
-                    d3.max(dataset, d => d.high) * 1.05
-                ])
+                .domain([initPriceDomainLow, initPriceDomainHigh])
                 .nice()
                 .range([height, 0]);
 
@@ -433,10 +418,22 @@
                     data = dataset;
                 }
                 
-                // Update scales based on filtered data
-                const minPrice = d3.min(data, d => d.low) * 0.95;
-                const maxPrice = d3.max(data, d => d.high) * 1.05;
+                // Update scales based on filtered data - handle empty arrays safely
+                let minPrice = Infinity;
+                let maxPrice = -Infinity;
                 
+                if (data.length > 0) {
+                    minPrice = Math.min(minPrice, d3.min(data, d => d.low));
+                    maxPrice = Math.max(maxPrice, d3.max(data, d => d.high));
+                }
+                
+                // If still no valid data, use defaults
+                if (minPrice === Infinity) minPrice = 0;
+                if (maxPrice === -Infinity) maxPrice = 1;
+                
+                // Add padding and set domain
+                minPrice = minPrice * 0.95;
+                maxPrice = maxPrice * 1.05;
                 x.domain(d3.extent(data, d => d.date));
                 yPrice.domain([minPrice, maxPrice]).nice();
                 yVolume.domain([0, d3.max(data, d => d.volume) * 1.1]).nice();
@@ -626,6 +623,146 @@
                 
                 // Calculate volume domain
                 const maxVolume = d3.max(zoomedData, d => d.volume);
+                yVolume.domain([0, maxVolume * 1.1]).nice();
+                
+                // Update axes with appropriate tick intervals
+                const zoomTimeRange = x.domain()[1] - x.domain()[0];
+                const zoomYearsRange = zoomTimeRange / (1000 * 60 * 60 * 24 * 365.25);
+                
+                let xAxisUpdated;
+                if (zoomYearsRange < 2) {
+                    // Less than 2 years: show months
+                    xAxisUpdated = d3.axisBottom(x)
+                        .ticks(d3.timeMonth.every(1))
+                        .tickFormat(d3.timeFormat("%b %Y"));
+                } else if (zoomYearsRange < 10) {
+                    // 2-10 years: show years
+                    xAxisUpdated = d3.axisBottom(x)
+                        .ticks(d3.timeYear.every(1))
+                        .tickFormat(d3.timeFormat("%Y"));
+                } else {
+                    // More than 10 years: show every 5 years to avoid crowding
+                    xAxisUpdated = d3.axisBottom(x)
+                        .ticks(d3.timeYear.every(5))
+                        .tickFormat(d3.timeFormat("%Y"));
+                }
+                
+                // Update axes
+                svg.select(".x.axis").transition().duration(500).call(xAxisUpdated);
+                svg.select(".y.axis.left").transition().duration(500).call(yAxisLeft);
+                svg.select(".y.axis.right").transition().duration(500).call(yAxisRight);
+                
+                // Update lines with zoomed data
+                svg.select(".volume-area")
+                    .transition()
+                    .duration(500)
+                    .attr("d", zoomedData.length > 0 ? volumeArea(zoomedData) : "M0,0 L0,0");
+                
+                svg.select(".volume-line")
+                    .transition()
+                    .duration(500)
+                    .attr("d", zoomedData.length > 0 ? volumeLine(zoomedData) : "M0,0 L0,0");
+                
+                svg.select(".price-line")
+                    .transition()
+                    .duration(500)
+                    .attr("d", zoomedData.length > 0 ? priceLine(zoomedData) : "M0,0 L0,0");
+                
+                // Update circles with zoomed data
+                const updateCircles = (circleClass, data, valueFn, yAccessor) => {
+                    const circles = svg.selectAll(`.${circleClass}`)
+                        .data(data, d => d.date.toISOString());
+                    
+                    circles.enter()
+                        .append("circle")
+                        .attr("class", circleClass)
+                        .attr("cx", d => x(valueFn(d).date))
+                        .attr("cy", d => yAccessor(valueFn(d)))
+                        .attr("r", 6)
+                        .style("fill", "none")
+                        .style("pointer-events", "all")
+                        .on("mouseover", function(event, d) { 
+                            showTooltip(event, d);
+                        })
+                        .on("mousemove", function(event) { positionTooltip(event); })
+                        .on("mouseout", hideTooltip);
+                    
+                    circles.exit().remove();
+                    
+                    circles
+                        .transition()
+                        .duration(500)
+                        .attr("cx", d => x(valueFn(d).date))
+                        .attr("cy", d => yAccessor(valueFn(d)));
+                };
+                
+                // For price and volume, use zoomed dataset
+                updateCircles("price-circle", zoomedData, d => d, d => yPrice(d.close));
+                updateCircles("volume-circle", zoomedData, d => d, d => yVolume(d.volume));
+            }
+
+            // Brush functionality for zoom/pan - only update on brush end (mouse up)
+            function brushended({selection}) {
+                if (!selection) {
+                    // If brush is cleared, reset to full domain
+                    brushSelection = null;
+                    x.domain(d3.extent(dataset, d => d.date));
+                    // Update charts
+                    updateChart(filteredData);
+                } else {
+                    // Ignore small brush movements (likely clicks)
+                    const [x0, x1] = selection;
+                    if (Math.abs(x1 - x0) > 5) { // 5 pixels threshold
+                        // If brush is completed and there was a meaningful drag, update chart with zoomed data
+                        brushSelection = selection;
+                        // Update x domain from brush selection (invert pixel coordinates to dates)
+                        x.domain([x.invert(x0), x.invert(x1)]);
+                        updateChartWithZoom();
+                    }
+                    // else: ignore small selections (clicks)
+                }
+            }
+
+            function updateChartWithZoom() {
+                // Filter data to match current zoomed x domain
+                const zoomedData = dataset.filter(d => x(d.date) >= 0 && x(d.date) <= width);
+                
+                // Handle case where no data is in view
+                if (zoomedData.length === 0) {
+                    // Reset to full domain if no data in view
+                    x.domain(d3.extent(dataset, d => d.date));
+                    updateChart(filteredData);
+                    return;
+                }
+                
+                // Update scales based on zoomed data
+                // Calculate min/max for price, handling empty arrays
+                let minPrice = Infinity;
+                let maxPrice = -Infinity;
+                
+                if (zoomedData.length > 0) {
+                    minPrice = Math.min(minPrice, d3.min(zoomedData, d => d.low));
+                    maxPrice = Math.max(maxPrice, d3.max(zoomedData, d => d.high));
+                }
+                
+                // If no data in view, use full dataset ranges
+                if (minPrice === Infinity) {
+                    minPrice = d3.min(dataset, d => d.low);
+                }
+                if (maxPrice === -Infinity) {
+                    maxPrice = d3.max(dataset, d => d.high);
+                }
+                
+                // Add padding and set domain
+                minPrice = minPrice * 0.95;
+                maxPrice = maxPrice * 1.05;
+                yPrice.domain([minPrice, maxPrice]).nice();
+                
+                // Calculate volume domain
+                let maxVolume = 0;
+                if (zoomedData.length > 0) {
+                    maxVolume = d3.max(zoomedData, d => d.volume);
+                }
                 yVolume.domain([0, maxVolume * 1.1]).nice();
                 
                 // Update axes with appropriate tick intervals
