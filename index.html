@@ -69,10 +69,24 @@
             stroke: rgba(54, 162, 235, 0.8);
             stroke-width: 1;
         }
-        .volume-line {
+        .capital-line {
             fill: none;
-            stroke: rgba(54, 162, 235, 1);
+            stroke: #8e44ad;
             stroke-width: 2;
+        }
+        .capital-area {
+            fill: rgba(142, 68, 173, 0.3);
+            stroke: rgba(142, 68, 173, 0.8);
+            stroke-width: 1;
+        }
+        .chart-container {
+            margin-bottom: 40px;
+        }
+        .chart-title {
+            text-align: center;
+            color: #555;
+            margin-bottom: 10px;
+            font-size: 24px;
         }
         .tooltip {
             position: absolute;
@@ -120,24 +134,39 @@
 </head>
 <body>
     <div class="container">
-        <h1>AAPL Stock Price and Volume (All Time)</h1>
+        <h1>AAPL Stock Analysis (All Time)</h1>
         <div class="controls">
             <button class="btn" id="1y">1 Year</button>
             <button class="btn" id="5y">5 Years</button>
             <button class="btn" id="10y">10 Years</button>
             <button class="btn" id="all" active>All Time</button>
         </div>
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: #ff6b6b;"></div>
-                <span>Closing Price</span>
+        
+        <div class="chart-container">
+            <div class="chart-title">Stock Price and Volume</div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #ff6b6b;"></div>
+                    <span>Closing Price</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: rgba(54, 162, 235, 0.3); border: 1px solid rgba(54, 162, 235, 0.8);"></div>
+                    <span>Volume</span>
+                </div>
             </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: rgba(54, 162, 235, 0.3); border: 1px solid rgba(54, 162, 235, 0.8);"></div>
-                <span>Volume</span>
-            </div>
+            <div class="chart" id="chart"></div>
         </div>
-        <div class="chart" id="chart"></div>
+
+        <div class="chart-container">
+            <div class="chart-title">Capital Moves</div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: rgba(142, 68, 173, 0.3); border: 1px solid rgba(142, 68, 173, 0.8);"></div>
+                    <span>Capital (Close × Volume)</span>
+                </div>
+            </div>
+            <div class="chart" id="capital-chart"></div>
+        </div>
     </div>
 
     <script>
@@ -184,6 +213,13 @@
                 .append("g")
                 .attr("transform", `translate(${margin.left},${margin.top})`);
 
+            const svgCap = d3.select("#capital-chart")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
             // Add zoom/brush functionality - zoom only on brush end (mouse up), not during drag
             const brush = d3.brushX()
                 .extent([[0, 0], [width, height]])
@@ -214,6 +250,12 @@
                 .nice()
                 .range([height, 0]);
 
+            // Capital Moves scale
+            const yCapital = d3.scaleLinear()
+                .domain([0, d3.max(dataset, d => d.close * d.volume) * 1.1])
+                .nice()
+                .range([height, 0]);
+
             // Create axes
             const xAxis = d3.axisBottom(x)
                 .ticks(d3.timeYear.every(1))
@@ -223,6 +265,9 @@
                 .tickFormat(d => `$${d.toFixed(0)}`);
 
             const yAxisRight = d3.axisRight(yVolume)
+                .tickFormat(d => d3.format(".2s")(d));
+
+            const yAxisCapital = d3.axisLeft(yCapital)
                 .tickFormat(d => d3.format(".2s")(d));
 
             // Add X axis
@@ -284,9 +329,28 @@
                 .y(d => yVolume(d.volume))
                 .curve(d3.curveMonotoneX);
 
+            const capitalArea = d3.area()
+                .defined(d => !isNaN(d.date) && !isNaN(d.close) && !isNaN(d.volume))
+                .x(d => x(d.date))
+                .y0(height)
+                .y1(d => yCapital(d.close * d.volume))
+                .curve(d3.curveMonotoneX);
+
+            const capitalLine = d3.line()
+                .defined(d => !isNaN(d.date) && !isNaN(d.close) && !isNaN(d.volume))
+                .x(d => x(d.date))
+                .y(d => yCapital(d.close * d.volume))
+                .curve(d3.curveMonotoneX);
+
             // Add clipping rectangle to prevent overlap
             svg.append("defs").append("clipPath")
                 .attr("id", "chart-clip")
+                .append("rect")
+                .attr("width", width)
+                .attr("height", height);
+
+            svgCap.append("defs").append("clipPath")
+                .attr("id", "capital-clip")
                 .append("rect")
                 .attr("width", width)
                 .attr("height", height);
@@ -297,6 +361,43 @@
                 .attr("class", "volume-area")
                 .attr("d", volumeArea(dataset))
                 .attr("clip-path", "url(#chart-clip)");
+
+            // Add capital moves area and line to second chart
+            svgCap.append("path")
+                .datum(dataset)
+                .attr("class", "capital-area")
+                .attr("d", capitalArea(dataset))
+                .attr("clip-path", "url(#capital-clip)");
+
+            svgCap.append("path")
+                .datum(dataset)
+                .attr("class", "capital-line")
+                .attr("d", capitalLine(dataset))
+                .attr("clip-path", "url(#capital-clip)");
+
+            // Add X axis for capital chart
+            svgCap.append("g")
+                .attr("class", "x axis")
+                .attr("transform", `translate(0,${height})`)
+                .call(xAxis)
+                .selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-45)");
+
+            // Add Y axis for capital chart
+            svgCap.append("g")
+                .attr("class", "y axis left")
+                .call(yAxisCapital);
+
+            svgCap.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 0 - margin.left + 30)
+                .attr("x", 0 - (height / 2))
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .text("Capital (USD)");
 
             // Add the volume line (middle layer)
             svg.append("path")
@@ -335,7 +436,8 @@
                     `High: $${d.high.toFixed(2)}<br/>` +
                     `Low: $${d.low.toFixed(2)}<br/>` +
                     `Close: $${d.close.toFixed(2)}<br/>` +
-                    `Volume: ${d.volume.toLocaleString()}`
+                    `Volume: ${d.volume.toLocaleString()}<br/>` +
+                    `Capital: $${(d.close * d.volume).toLocaleString(undefined, {maximumFractionDigits: 0})}`
                 );
                 positionTooltip(event);
             }
@@ -346,6 +448,21 @@
                        .duration(500)
                        .style("opacity", 0);
             }
+
+            // Add invisible circles for capital interaction
+            svgCap.selectAll(".capital-circle")
+                .data(dataset)
+                .enter()
+                .append("circle")
+                .attr("class", "capital-circle")
+                .attr("cx", d => x(d.date))
+                .attr("cy", d => yCapital(d.close * d.volume))
+                .attr("r", 6)
+                .style("fill", "none")
+                .style("pointer-events", "all")
+                .on("mouseover", function(event, d) { showTooltip(event, d); })
+                .on("mousemove", function(event) { positionTooltip(event); })
+                .on("mouseout", hideTooltip);
 
             // Add invisible circles for price interaction
             svg.selectAll(".price-circle")
@@ -462,8 +579,10 @@
 
                 // Update axes
                 svg.select(".x.axis").transition().duration(500).call(xAxisUpdated);
+                svgCap.select(".x.axis").transition().duration(500).call(xAxisUpdated);
                 svg.select(".y.axis.left").transition().duration(500).call(yAxisLeft);
                 svg.select(".y.axis.right").transition().duration(500).call(yAxisRight);
+                svgCap.select(".y.axis.left").transition().duration(500).call(yAxisCapital);
 
                 // Update lines - redraw in correct order: volume area, volume line, price line
                 // Volume area (bottom)
@@ -471,6 +590,18 @@
                     .transition()
                     .duration(500)
                     .attr("d", data.length > 0 ? volumeArea(data) : "M0,0 L0,0");
+
+                // Capital area (bottom)
+                svgCap.select(".capital-area")
+                    .transition()
+                    .duration(500)
+                    .attr("d", data.length > 0 ? capitalArea(data) : "M0,0 L0,0");
+
+                // Capital line (top)
+                svgCap.select(".capital-line")
+                    .transition()
+                    .duration(500)
+                    .attr("d", data.length > 0 ? capitalLine(data) : "M0,0 L0,0");
 
                 // Volume line (middle)
                 svg.select(".volume-line")
@@ -649,8 +780,10 @@
                 
                 // Update axes
                 svg.select(".x.axis").transition().duration(500).call(xAxisUpdated);
+                svgCap.select(".x.axis").transition().duration(500).call(xAxisUpdated);
                 svg.select(".y.axis.left").transition().duration(500).call(yAxisLeft);
                 svg.select(".y.axis.right").transition().duration(500).call(yAxisRight);
+                svgCap.select(".y.axis.left").transition().duration(500).call(yAxisCapital);
                 
                 // Update lines with zoomed data
                 svg.select(".volume-area")
@@ -658,6 +791,16 @@
                     .duration(500)
                     .attr("d", zoomedData.length > 0 ? volumeArea(zoomedData) : "M0,0 L0,0");
                 
+                svgCap.select(".capital-area")
+                    .transition()
+                    .duration(500)
+                    .attr("d", zoomedData.length > 0 ? capitalArea(zoomedData) : "M0,0 L0,0");
+
+                svgCap.select(".capital-line")
+                    .transition()
+                    .duration(500)
+                    .attr("d", zoomedData.length > 0 ? capitalLine(zoomedData) : "M0,0 L0,0");
+
                 svg.select(".volume-line")
                     .transition()
                     .duration(500)
@@ -789,8 +932,10 @@
                 
                 // Update axes
                 svg.select(".x.axis").transition().duration(500).call(xAxisUpdated);
+                svgCap.select(".x.axis").transition().duration(500).call(xAxisUpdated);
                 svg.select(".y.axis.left").transition().duration(500).call(yAxisLeft);
                 svg.select(".y.axis.right").transition().duration(500).call(yAxisRight);
+                svgCap.select(".y.axis.left").transition().duration(500).call(yAxisCapital);
                 
                 // Update lines with zoomed data
                 svg.select(".volume-area")
@@ -798,6 +943,16 @@
                     .duration(500)
                     .attr("d", zoomedData.length > 0 ? volumeArea(zoomedData) : "M0,0 L0,0");
                 
+                svgCap.select(".capital-area")
+                    .transition()
+                    .duration(500)
+                    .attr("d", zoomedData.length > 0 ? capitalArea(zoomedData) : "M0,0 L0,0");
+
+                svgCap.select(".capital-line")
+                    .transition()
+                    .duration(500)
+                    .attr("d", zoomedData.length > 0 ? capitalLine(zoomedData) : "M0,0 L0,0");
+
                 svg.select(".volume-line")
                     .transition()
                     .duration(500)
