@@ -55,6 +55,70 @@
             border-radius: 4px;
             border: 1px solid #ccc;
         }
+        .dark-mode-toggle {
+            padding: 8px 16px;
+            margin-right: 16px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: white;
+            color: #333;
+            cursor: pointer;
+        }
+        .dark-mode-toggle.active {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        body.dark-mode .container {
+            background-color: #2d2d2d;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        body.dark-mode h1 {
+            color: #e0e0e0;
+        }
+        body.dark-mode .controls {
+            background-color: #3a3a3a;
+            border: 1px solid #555;
+        }
+        body.dark-mode .btn {
+            background-color: #007bff;
+            color: white;
+        }
+        body.dark-mode .btn.active {
+            background-color: #28a745;
+        }
+        body.dark-mode .stock-select {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+        body.dark-mode .dark-mode-toggle {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+        body.dark-mode .axis line {
+            stroke: #444;
+        }
+        body.dark-mode .axis path {
+            stroke: #666;
+        }
+        body.dark-mode .brush-extent {
+            stroke: #888;
+        }
+        body.dark-mode .tooltip {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            border: 1px solid #555;
+        }
+        body.dark-mode text {
+            fill: #e0e0e0;
+        }
         .chart {
             width: 100%;
             height: 500px;
@@ -154,6 +218,7 @@
         <h1>Multi-Stock Analysis</h1>
         <div class="controls">
             <select class="stock-select" id="stock-select"></select>
+            <button class="dark-mode-toggle" id="dark-mode-toggle">Dark Mode</button>
             <button class="btn" id="1y">1 Year</button>
             <button class="btn" id="5y">5 Years</button>
             <button class="btn" id="10y">10 Years</button>
@@ -201,12 +266,30 @@
 
         function initMultiStock(stocksData) {
             const stockSelect = document.getElementById('stock-select');
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
 
-            // Populate dropdown with stock symbols
+            // Dark mode toggle
+            let darkMode = false;
+            darkModeToggle.addEventListener('click', function() {
+                darkMode = !darkMode;
+                document.body.classList.toggle('dark-mode', darkMode);
+                darkModeToggle.classList.toggle('active', darkMode);
+                darkModeToggle.textContent = darkMode ? 'Light Mode' : 'Dark Mode';
+            });
+
+            const companyNames = {
+                AAPL: 'Apple Inc.',
+                MSFT: 'Microsoft Corporation',
+                GOOGL: 'Alphabet Inc.',
+                AMZN: 'Amazon.com Inc.',
+                TSLA: 'Tesla Inc.'
+            };
+
+            // Populate dropdown with company name and ticker symbol
             stocksData.forEach(stock => {
                 const option = document.createElement('option');
                 option.value = stock.symbol;
-                option.textContent = stock.symbol;
+                option.textContent = `${companyNames[stock.symbol] || stock.symbol} (${stock.symbol})`;
                 stockSelect.appendChild(option);
             });
 
