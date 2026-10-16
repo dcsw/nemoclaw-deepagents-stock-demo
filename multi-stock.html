@@ -390,6 +390,7 @@
                 let brushSelection = null;
                 let dragStartX = null;
                 let dragStartDomain = null;
+                let isDragging = false;
 
                 // Set up scales (shared x-axis)
                 const x = d3.scaleTime()
@@ -815,6 +816,9 @@
 
                 // Brush functionality for zoom/pan - only update on brush end
                 function brushended({selection}) {
+                    // Don't let brush events interfere with a drag pan in progress
+                    if (isDragging) return;
+
                     if (!selection) {
                         brushSelection = null;
                         x.domain(d3.extent(dataset, d => d.date));
@@ -833,6 +837,7 @@
                 // Drag handlers for right-click pan
                 function dragstarted(event) {
                     event.sourceEvent.preventDefault();
+                    isDragging = true;
                     dragStartX = event.x;
                     dragStartDomain = x.domain();
                 }
@@ -866,6 +871,7 @@
                 }
 
                 function dragended(event) {
+                    isDragging = false;
                     dragStartX = null;
                     dragStartDomain = null;
                 }
