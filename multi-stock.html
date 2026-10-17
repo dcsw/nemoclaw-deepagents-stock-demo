@@ -833,6 +833,9 @@
                         x.domain(newDomain);
                         updateChartWithZoom();
                     }
+                    // Remove the gray brush extent rectangle after zoom is applied
+                    svg.select(".brush .brush-extent").remove();
+                    svgCap.select(".brush .brush-extent").remove();
                 }
 
                 // Drag handlers for right-click pan
