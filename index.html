@@ -236,11 +236,12 @@
                 .extent([[0, 0], [width, height]])
                 .on("end", brushended);
 
-            svg.append("g")
+            const brushGroup = svg.append("g")
                 .attr("class", "brush")
                 .call(brush);
 
             let brushSelection = null; // Store the current brush selection
+            let clearingBrush = false;
 
             // Set up scales (shared x-axis)
             const x = d3.scaleTime()
@@ -678,6 +679,7 @@
 
             // Brush functionality for zoom/pan - only update on brush end (mouse up)
             function brushended({selection}) {
+                if (clearingBrush) return;
                 if (!selection) {
                     // If brush is cleared, reset to full domain
                     brushSelection = null;
@@ -697,6 +699,10 @@
                     }
                     // else: ignore small selections (clicks)
                 }
+                // Clear the brush selection so the gray rectangle disappears on mouseup
+                clearingBrush = true;
+                brushGroup.call(brush.move, null);
+                clearingBrush = false;
             }
 
             // Drag handlers for right-click pan
@@ -857,6 +863,7 @@
 
             // Brush functionality for zoom/pan - only update on brush end (mouse up)
             function brushended({selection}) {
+                if (clearingBrush) return;
                 if (!selection) {
                     // If brush is cleared, reset to full domain
                     brushSelection = null;
@@ -875,6 +882,10 @@
                     }
                     // else: ignore small selections (clicks)
                 }
+                // Clear the brush selection so the gray rectangle disappears on mouseup
+                clearingBrush = true;
+                brushGroup.call(brush.move, null);
+                clearingBrush = false;
             }
 
             function updateChartWithZoom() {
