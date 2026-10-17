@@ -673,11 +673,14 @@
             function brushended({selection}) {
                 if (clearingBrush) return;
                 if (!selection) {
-                    // If brush is cleared, reset to full domain
-                    brushSelection = null;
-                    x.domain(d3.extent(dataset, d => d.date));
-                    // Update charts
-                    updateChart(filteredData);
+                    // Only reset to full view if clearing an active zoom
+                    if (brushSelection) {
+                        brushSelection = null;
+                        x.domain(d3.extent(dataset, d => d.date));
+                        // Update charts
+                        updateChart(filteredData);
+                    }
+                    return;
                 } else {
                     // Ignore small brush movements (likely clicks)
                     const [x0, x1] = selection;
@@ -857,11 +860,14 @@
             function brushended({selection}) {
                 if (clearingBrush) return;
                 if (!selection) {
-                    // If brush is cleared, reset to full domain
-                    brushSelection = null;
-                    x.domain(d3.extent(dataset, d => d.date));
-                    // Update charts
-                    updateChart(filteredData);
+                    // Only reset to full view if clearing an active zoom
+                    if (brushSelection) {
+                        brushSelection = null;
+                        x.domain(d3.extent(dataset, d => d.date));
+                        // Update charts
+                        updateChart(filteredData);
+                    }
+                    return;
                 } else {
                     // Ignore small brush movements (likely clicks)
                     const [x0, x1] = selection;
