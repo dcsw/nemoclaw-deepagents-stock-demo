@@ -75,6 +75,11 @@
             fill: rgba(54, 162, 235, 0.3);
             stroke-width: 1;
         }
+        .volume-line {
+            fill: none;
+            stroke: rgba(54, 162, 235, 0.8);
+            stroke-width: 1.5;
+        }
         .capital-line {
             fill: none;
             stroke: #8e44ad;
@@ -239,6 +244,10 @@
                 .attr("class", "brush")
                 .call(brush);
 
+            const brushGroupCap = svgCap.append("g")
+                .attr("class", "brush")
+                .call(brush);
+
             let brushSelection = null; // Store the current brush selection
             let clearingBrush = false;
 
@@ -371,6 +380,13 @@
                 .datum(dataset)
                 .attr("class", "volume-area")
                 .attr("d", volumeArea(dataset))
+                .attr("clip-path", "url(#chart-clip)");
+
+            // Add volume line (middle layer)
+            svg.append("path")
+                .datum(dataset)
+                .attr("class", "volume-line")
+                .attr("d", volumeLine(dataset))
                 .attr("clip-path", "url(#chart-clip)");
 
             // Add capital moves area and line to second chart
@@ -697,6 +713,7 @@
                 // Clear the brush selection so the gray rectangle disappears on mouseup
                 clearingBrush = true;
                 brushGroup.call(brush.move, null);
+                brushGroupCap.call(brush.move, null);
                 clearingBrush = false;
             }
 
@@ -745,145 +762,6 @@
             function dragended(event) {
                 dragStartX = null;
                 dragStartDomain = null;
-            }
-
-            function updateChartWithZoom() {
-                // Filter data to match current zoomed x domain
-                const zoomedData = dataset.filter(d => x(d.date) >= 0 && x(d.date) <= width);
-                
-                // Handle case where no data is in view
-                if (zoomedData.length === 0) {
-                    // Reset to full domain if no data in view
-                    x.domain(d3.extent(dataset, d => d.date));
-                    updateChart(filteredData);
-                    return;
-                }
-                
-                // Update scales based on zoomed data
-                const minPrice = d3.min(zoomedData, d => d.low) * 0.95;
-                const maxPrice = d3.max(zoomedData, d => d.high) * 1.05;
-                yPrice.domain([minPrice, maxPrice]).nice();
-                
-                // Calculate volume domain
-                const maxVolume = d3.max(zoomedData, d => d.volume);
-                yVolume.domain([0, maxVolume * 1.1]).nice();
-                
-                // Update axes with appropriate tick intervals
-                const zoomTimeRange = x.domain()[1] - x.domain()[0];
-                const zoomYearsRange = zoomTimeRange / (1000 * 60 * 60 * 24 * 365.25);
-                
-                let xAxisUpdated;
-                if (zoomYearsRange < 2) {
-                    // Less than 2 years: show months
-                    xAxisUpdated = d3.axisBottom(x)
-                        .ticks(d3.timeMonth.every(1))
-                        .tickFormat(d3.timeFormat("%b %Y"));
-                } else if (zoomYearsRange < 10) {
-                    // 2-10 years: show years
-                    xAxisUpdated = d3.axisBottom(x)
-                        .ticks(d3.timeYear.every(1))
-                        .tickFormat(d3.timeFormat("%Y"));
-                } else {
-                    // More than 10 years: show every 5 years to avoid crowding
-                    xAxisUpdated = d3.axisBottom(x)
-                        .ticks(d3.timeYear.every(5))
-                        .tickFormat(d3.timeFormat("%Y"));
-                }
-                
-                // Update axes
-                svg.select(".x.axis").transition().duration(500).call(xAxisUpdated);
-                svgCap.select(".x.axis").transition().duration(500).call(xAxisUpdated);
-                svg.select(".y.axis.left").transition().duration(500).call(yAxisLeft);
-                svg.select(".y.axis.right").transition().duration(500).call(yAxisRight);
-                svgCap.select(".y.axis.left").transition().duration(500).call(yAxisCapital);
-                
-                // Update lines with zoomed data
-                svg.select(".volume-area")
-                    .transition()
-                    .duration(500)
-                    .attr("d", zoomedData.length > 0 ? volumeArea(zoomedData) : "M0,0 L0,0");
-                
-                svgCap.select(".capital-area")
-                    .transition()
-                    .duration(500)
-                    .attr("d", zoomedData.length > 0 ? capitalArea(zoomedData) : "M0,0 L0,0");
-
-                svgCap.select(".capital-line")
-                    .transition()
-                    .duration(500)
-                    .attr("d", zoomedData.length > 0 ? capitalLine(zoomedData) : "M0,0 L0,0");
-
-                svg.select(".volume-line")
-                    .transition()
-                    .duration(500)
-                    .attr("d", zoomedData.length > 0 ? volumeLine(zoomedData) : "M0,0 L0,0");
-                
-                svg.select(".price-line")
-                    .transition()
-                    .duration(500)
-                    .attr("d", zoomedData.length > 0 ? priceLine(zoomedData) : "M0,0 L0,0");
-                
-                // Update circles with zoomed data
-                const updateCircles = (circleClass, data, valueFn, yAccessor) => {
-                    const circles = svg.selectAll(`.${circleClass}`)
-                        .data(data, d => d.date.toISOString());
-                    
-                    circles.enter()
-                        .append("circle")
-                        .attr("class", circleClass)
-                        .attr("cx", d => x(valueFn(d).date))
-                        .attr("cy", d => yAccessor(valueFn(d)))
-                        .attr("r", 6)
-                        .style("fill", "none")
-                        .style("pointer-events", "all")
-                        .on("mouseover", function(event, d) { 
-                            showTooltip(event, d);
-                        })
-                        .on("mousemove", function(event) { positionTooltip(event); })
-                        .on("mouseout", hideTooltip);
-                    
-                    circles.exit().remove();
-                    
-                    circles
-                        .transition()
-                        .duration(500)
-                        .attr("cx", d => x(valueFn(d).date))
-                        .attr("cy", d => yAccessor(valueFn(d)));
-                };
-                
-                // For price and volume, use zoomed dataset
-                updateCircles("price-circle", zoomedData, d => d, d => yPrice(d.close));
-                updateCircles("volume-circle", zoomedData, d => d, d => yVolume(d.volume));
-            }
-
-            // Brush functionality for zoom/pan - only update on brush end (mouse up)
-            function brushended({selection}) {
-                if (clearingBrush) return;
-                if (!selection) {
-                    // Only reset to full view if clearing an active zoom
-                    if (brushSelection) {
-                        brushSelection = null;
-                        x.domain(d3.extent(dataset, d => d.date));
-                        // Update charts
-                        updateChart(filteredData);
-                    }
-                    return;
-                } else {
-                    // Ignore small brush movements (likely clicks)
-                    const [x0, x1] = selection;
-                    if (Math.abs(x1 - x0) > 5) { // 5 pixels threshold
-                        // If brush is completed and there was a meaningful drag, update chart with zoomed data
-                        brushSelection = selection;
-                        // Update x domain from brush selection (invert pixel coordinates to dates)
-                        x.domain([x.invert(x0), x.invert(x1)]);
-                        updateChartWithZoom();
-                    }
-                    // else: ignore small selections (clicks)
-                }
-                // Clear the brush selection so the gray rectangle disappears on mouseup
-                clearingBrush = true;
-                brushGroup.call(brush.move, null);
-                clearingBrush = false;
             }
 
             function updateChartWithZoom() {
