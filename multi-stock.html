@@ -378,11 +378,13 @@
 
                 // Attach drag handlers for right-click pan on both charts
                 svg.call(d3.drag()
+                    .filter(event => event.button === 2)
                     .on("start", dragstarted)
                     .on("drag", dragged)
                     .on("end", dragended));
 
                 svgCap.call(d3.drag()
+                    .filter(event => event.button === 2)
                     .on("start", dragstarted)
                     .on("drag", dragged)
                     .on("end", dragended));
@@ -390,7 +392,6 @@
                 let brushSelection = null;
                 let dragStartX = null;
                 let dragStartDomain = null;
-                let isDragging = false;
 
                 // Set up scales (shared x-axis)
                 const x = d3.scaleTime()
@@ -816,28 +817,27 @@
 
                 // Brush functionality for zoom/pan - only update on brush end
                 function brushended({selection}) {
-                    // Don't let brush events interfere with a drag pan in progress
-                    if (isDragging) return;
-
                     if (!selection) {
-                        brushSelection = null;
-                        x.domain(d3.extent(dataset, d => d.date));
-                        updateChart(currentFilteredData);
-                    } else {
-                        const [x0, x1] = selection;
-                        if (Math.abs(x1 - x0) > 5) {
-                            brushSelection = selection;
-                            const newDomain = [x.invert(x0), x.invert(x1)].sort((a, b) => a - b);
-                            x.domain(newDomain);
-                            updateChartWithZoom();
+                        // Only reset to full view if clearing an active zoom
+                        if (brushSelection) {
+                            brushSelection = null;
+                            x.domain(d3.extent(dataset, d => d.date));
+                            updateChart(currentFilteredData);
                         }
+                        return;
+                    }
+                    const [x0, x1] = selection;
+                    if (Math.abs(x1 - x0) > 5) {
+                        brushSelection = selection;
+                        const newDomain = [x.invert(x0), x.invert(x1)].sort((a, b) => a - b);
+                        x.domain(newDomain);
+                        updateChartWithZoom();
                     }
                 }
 
                 // Drag handlers for right-click pan
                 function dragstarted(event) {
                     event.sourceEvent.preventDefault();
-                    isDragging = true;
                     dragStartX = event.x;
                     dragStartDomain = x.domain();
                 }
@@ -871,7 +871,6 @@
                 }
 
                 function dragended(event) {
-                    isDragging = false;
                     dragStartX = null;
                     dragStartDomain = null;
                 }
